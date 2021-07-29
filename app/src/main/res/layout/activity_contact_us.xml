@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.ContactUs"
+    android:orientation="vertical">
+
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/ccp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="start"
+        android:layout_marginBottom="32dp"
+        app:ccp_autoDetectCountry="true"
+        app:ccp_autoFormatNumber="true"
+        app:ccp_countryPreference="us,in"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/messageTV"
+        app:layout_constraintEnd_toStartOf="@id/number_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/number_tv"
+        style="outlined"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="0722560143"
+        android:inputType="phone"
+        android:singleLine="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/messageTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ccp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/messageTV"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="32dp"
+        android:hint="Type Your Message here\nTo contact us on whatsaap."
+        app:layout_constraintBottom_toTopOf="@+id/buttonSend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="Send"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/messageTV" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

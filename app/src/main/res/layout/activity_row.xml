@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#FFD700"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@drawable/cardview2"/>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            android:textColor="#ffffff"
+            android:background="#02075d"
+            android:id="@+id/ptxnDateTitle"
+            android:layout_marginEnd="10dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:id="@+id/ptxnDate"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="Service :"
+            android:textColor="#FFFFFF"
+            android:background="#02075d"
+            android:id="@+id/pserviceTitle"
+            android:layout_marginEnd="10dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:id="@+id/pserviceName"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/amount"
+            android:textColor="#FFFFFF"
+            android:background="#02075d"
+            android:id="@+id/pserviceAmountTitle"
+            android:layout_marginEnd="10dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:id="@+id/pserviceAmount"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/pmerchantNameTitle"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:background="#02075d"
+            android:text="@string/provider"
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pmerchantName"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/productNameTitle"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:background="#02075d"-->
+<!--            android:visibility="gone"-->
+<!--            android:text="@string/productname"-->
+<!--            android:textColor="#FFFFFF" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/productName"-->
+<!--            android:textColor="#000000"-->
+<!--            android:visibility="gone"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_marginBottom="10dp"/>-->
+
+<!--    </LinearLayout>-->
+
+
+</LinearLayout>

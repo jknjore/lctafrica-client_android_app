@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="20dp"
+    android:viewportHeight="50"
+    android:viewportWidth="12">
+
+    <path
+        android:fillColor="#79C1F1"
+        android:pathData="M 0,0 L 0,11 C 1,12 5,12 8,12 C 12,12 12,11 12,11 L 12,0 0,0"
+        android:strokeWidth="0.1"/>
+
+</vector>
+
+<!--<shape xmlns:android="http://schemas.android.com/apk/res/android">-->
+
+<!--&lt;!&ndash;    <solid android:color="#79C1F1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <solid android:color="#ffffff"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <corners&ndash;&gt;-->
+<!--&lt;!&ndash;        android:bottomLeftRadius="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:bottomRightRadius="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:topLeftRadius="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:topRightRadius="10dp" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <stroke&ndash;&gt;-->
+<!--&lt;!&ndash;        android:width="0.5dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:color="#79C1F1" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <solid android:color="#ffffff" />&ndash;&gt;-->
+
+<!--</shape>-->

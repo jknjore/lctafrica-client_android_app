@@ -1,0 +1,32 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">#66eee3ff</item>
+        <item name="colorPrimary">#191970</item>
+        <item name="colorAccent">#D3D3D3</item>
+    </style>
+
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ImagePreviewerTheme" >
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="EditText.Flat.Grey" parent="@style/AppTheme">
+        <item name="android:textColorHint">#999999</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Subhead</item>
+        <item name="android:textColor">#263238</item>
+    </style>
+    <style name="EditText.Grey" parent="@style/AppTheme">
+        <item name="colorControlActivated">#666666</item>
+        <item name="colorControlHighlight">#666666</item>
+        <item name="colorControlNormal">#999999</item>
+    </style>
+    <style name="MyAlertTheme" parent="@style/Theme.AppCompat.Light.Dialog.Alert"/>
+</resources>

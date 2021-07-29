@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/toolBarVisit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:elevation="0dp"
+            android:backgroundTint="#ffffff"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/sickPatient"
+            >
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/backarrow"
+                android:backgroundTint="#ffffff"
+                android:layout_gravity="start"
+                android:foregroundGravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start Visit"
+                android:layout_gravity="center"
+                android:textColor="#02075d"
+                android:textSize="20sp"
+                android:paddingVertical="5dp"
+                />
+
+        </androidx.cardview.widget.CardView>
+        <Spinner
+            android:id="@+id/sickPatient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolBarVisit"
+            app:layout_constraintBottom_toTopOf="@id/selectHospital"
+
+            />
+
+        <TextView
+            android:id="@+id/selectHospital"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Click to below Select Hospital >>"
+            android:textColor="#02075d"
+            app:layout_constraintBottom_toTopOf="@+id/selectedhospital"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/selectedhospital"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Click to Select Hospital >>"
+            android:textColor="#02075d"
+            app:layout_constraintBottom_toTopOf="@+id/changeHospital"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/selectHospital" />
+
+        <TextView
+            android:id="@+id/changeHospital"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:drawableRight="@drawable/edit"
+            android:gravity="center"
+            android:text="  Change  "
+            android:textColor="#02075d"
+            app:layout_constraintBottom_toTopOf="@+id/submitCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/selectedhospital" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/submitCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/changeHospital">
+
+            <Button
+                android:id="@+id/Submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:text="Start Visit" />
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

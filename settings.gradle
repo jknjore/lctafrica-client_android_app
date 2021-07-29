@@ -1,0 +1,4 @@
+include ':ImageBase64Encoder'
+include ':ImageBase64Encoder'
+rootProject.name='LCT'
+include ':app'
