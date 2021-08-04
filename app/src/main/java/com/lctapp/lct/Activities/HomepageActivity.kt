@@ -26,13 +26,24 @@ import com.github.kittinunf.fuel.android.extension.responseJson
 import com.github.kittinunf.fuel.core.HttpException
 import com.google.gson.Gson
 import com.lctapp.lct.*
+import com.lctapp.lct.Classes.Api.HospitalsAPi
+import com.lctapp.lct.Classes.Constants.APIClient
+import com.lctapp.lct.Classes.Helpers.General
+import com.lctapp.lct.Classes.Helpers.Loader
 import com.lctapp.lct.Classes.Insurer
 import com.lctapp.lct.Classes.MemberData
+import com.lctapp.lct.Classes.Models.MemberClaims.MemberClaims
+import com.lctapp.lct.Classes.Models.Payloads.Member
 import com.lctapp.lct.Classes.Variables
 import com.lctapp.lct.Classes.security.Biometric
 import com.lctapp.lct.Classes.utills.toast
 import kotlinx.android.synthetic.main.activity_homepage.*
+import kotlinx.android.synthetic.main.activity_homepage.txtName
+import kotlinx.android.synthetic.main.activity_member.*
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.Serializable
 import com.google.android.material.imageview.ShapeableImageView as ShapeableImageView1
 
@@ -53,6 +64,8 @@ class HomepageActivity: AppCompatActivity() {
     var images:String = ""
     var memberId:String = ""
     private var Scheme:String =""
+    var l: Loader = Loader
+    private var apiC: HospitalsAPi? = null
     // No Internet Dialog
     //private var noInternetDialog: NoInternetDialog? = null
 
@@ -83,6 +96,7 @@ class HomepageActivity: AppCompatActivity() {
         "http://35.241.171.182:8085/compas/rest/member/gtEclaimMembers?memberNo=$member"
         //"https://lctafrica.io/compas/rest/member/gtEclaimMembers?memberNo=$member"
         Log.e("URL>>", cardViewhURL)
+        apiC = APIClient.client?.create(HospitalsAPi::class.java)
 
         val editor= sharedpreferences!!.edit()
         editor.putString("images", images)
@@ -313,18 +327,117 @@ class HomepageActivity: AppCompatActivity() {
 
 
     private fun cardView(){
-        showSimpleProgressDialog(this@HomepageActivity, null, "fetching...", false)
-        try {
+        get_member_claims(member)
+//        showSimpleProgressDialog(this@HomepageActivity, null, "fetching...", false)
+//        try {
+//
+//            Fuel.get(cardViewhURL).responseJson { request, response, result ->
+//                Log.e("response: ", result.get().content)
+//                onTaskCompleted(result.get().content)
+//            }
+//        } catch (e: HttpException) {
+//            Log.e("Exception", e.toString())
+//            toast("Please Make Sure You Are Connected To The Internet!!!")
+//        }
+    }
 
-            Fuel.get(cardViewhURL).responseJson { request, response, result ->
-                Log.e("response: ", result.get().content)
-                onTaskCompleted(result.get().content)
-            }
-        } catch (e: HttpException) {
-            Log.e("Exception", e.toString())
-            toast("Please Make Sure You Are Connected To The Internet!!!")
+
+
+
+    private fun get_member_claims(memberNo:String)
+    {
+        l.showprogress(this@HomepageActivity,"please wait......")
+        try {
+            val payload_details = Member(memberNo)
+            val call: Call<MemberClaims> = apiC!!.get_member_claims(memberNo)
+            call.enqueue(object : Callback<MemberClaims> {
+                override fun onResponse(
+                    call: Call<MemberClaims>,
+                    response: Response<MemberClaims>
+                ) {
+                    l.dismissprogress()
+                    if (!response.isSuccessful) {
+                        var errorBodyString = ""
+                        try {
+                            errorBodyString = response.errorBody()!!.string()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                        Loader.toastError(this@HomepageActivity, errorBodyString)
+                        l.dismissprogress()
+                        return
+                    }
+                    val resp: MemberClaims? = response.body()
+                    if(resp!!.getMemberId() != "0")
+                    {
+                        populate_parameters(resp!!)
+                    }
+                    else
+                    {
+                        Loader.toast(this@HomepageActivity, "An error occurred getting member details "+resp.respCode)
+                    }
+
+                }
+
+                override fun onFailure(call: Call<MemberClaims>, t: Throwable) {
+                    Loader.toastError(this@HomepageActivity, t.message!!)
+                    l.dismissprogress()
+                }
+            })
+        } catch (e: Exception) {
+            Loader.toast(this@HomepageActivity, "Error getting member details")
+            l.dismissprogress()
         }
     }
+
+
+    private fun populate_parameters(resp: MemberClaims)
+    {
+
+            try {
+                if (resp.getMemberPic() != null) {
+                    images = resp.getMemberPic()
+
+                    val decodedImage = images?.let { decodeString(it) }
+
+                    pic.setImageBitmap(decodedImage)
+
+                }
+
+            } catch (e : Exception) {
+                Log.e("#### ERROR ", "HomePageActivity : " +e.toString())
+
+            }
+
+            memberId = resp.getMemberId()
+
+            memberNo.text = resp.getMemberNo()
+
+            policy.text =resp.getPolicyStartDate()
+
+
+            var fullName = resp.getFullName()
+
+            val username = fullName.substringBefore(
+                delimiter = " ",
+                missingDelimiterValue = "Username Not properly structured"
+            )
+
+            Name.text = username
+
+            val editor = sharedpreferences!!.edit()
+            editor.putString("memberId", memberId)     //im saving the image in shared prefrences then display the same image in homepage
+            editor.apply()
+
+            // THIS LINE COMMENTED OUT REPRESENTS THE USERS SCHEME ALSO COMMENTED OUT IN THE XML
+
+            Scheme =resp.getScheme()
+            Insurer.productName = Scheme
+
+    }
+
+
+
     private fun onTaskCompleted(response: String) {
         Log.e("responsejson", response)
         removeSimpleProgressDialog()  //will remove progress dialog

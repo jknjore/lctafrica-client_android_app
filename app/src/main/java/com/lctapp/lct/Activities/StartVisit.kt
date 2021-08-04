@@ -571,7 +571,7 @@ class StartVisit : AppCompatActivity() {
 //
 //            }
 
-            toast("Your hospital visit has been started successfully.")
+            //toast("Your hospital visit has been started successfully.")
         }
     }
 

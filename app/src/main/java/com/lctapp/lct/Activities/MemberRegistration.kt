@@ -11,9 +11,17 @@ import android.widget.EditText
 import android.widget.Toast
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.android.extension.responseJson
+import com.lctapp.lct.Classes.Api.HospitalsAPi
+import com.lctapp.lct.Classes.Constants.APIClient
+import com.lctapp.lct.Classes.Helpers.Loader
+import com.lctapp.lct.Classes.Models.Member.MemberDetails
+import com.lctapp.lct.Classes.Models.Payloads.Member
 import com.lctapp.lct.R
 import kotlinx.android.synthetic.main.activity_member_registration.*
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -28,6 +36,8 @@ class MemberRegistration : AppCompatActivity() {
     private var emailId:String=""
     private var phone:String=""
     private var mProgressDialog: ProgressDialog? = null
+    var l: Loader = Loader
+    private var apiC: HospitalsAPi? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +48,7 @@ class MemberRegistration : AppCompatActivity() {
         Log.e("INTERGER>>>",Id)
         fetchURL = "https://app.bongasms.co.ke/api/kyc?kyc_token=IyDMKF7Hk4T3Q486pTU5QY4VhjMOKOl&search_param="+Id
         Log.e("URL>>", fetchURL)
+        apiC = APIClient.client?.create(HospitalsAPi::class.java)
 
         details()
 
@@ -97,6 +108,9 @@ class MemberRegistration : AppCompatActivity() {
         }
 
     }
+
+
+
 
     private fun onTaskCompleted(response: String) {
 

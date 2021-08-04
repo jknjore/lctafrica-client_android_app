@@ -1,17 +1,17 @@
 package com.lctapp.lct.Classes.Api
 
+import com.google.gson.JsonObject
 import com.lctapp.lct.Classes.Models.HospitalData
 import com.lctapp.lct.Classes.Models.Member.MemberDetails
+import com.lctapp.lct.Classes.Models.MemberClaims.MemberClaims
 import com.lctapp.lct.Classes.Models.Payloads.*
 import com.lctapp.lct.Classes.Models.Responses.GeneralResponse
 import com.lctapp.lct.Classes.Models.Responses.LoginResp
 import com.lctapp.lct.Classes.Models.Responses.RegistrationResp
 import com.lctapp.lct.Classes.Models.Responses.TransactionResp
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
+
 
 interface HospitalsAPi {
     @get:GET("/compas/rest/merchant/gtMerchants")
@@ -32,7 +32,7 @@ interface HospitalsAPi {
     @PUT("/compas/rest/user/verifyEmail")
     fun validate_otp(@Body req: ValidateOTP?): Call<LoginResp>
 
-    @POST("https://e292578c409e.ngrok.io/compas/rest/user/validateUserMobileAppLocation")
+    @POST("/compas/rest/user/validateUserMobileAppLocation")
     fun validate_user_location(@Body req: UserLocationData?): Call<GeneralResponse>
 
     @POST("/compas/rest/user/insertVerifiedMember")
@@ -46,4 +46,8 @@ interface HospitalsAPi {
 
     @POST("/compas/rest/transaction/gtAllTxnDetailMobileApp")
     fun get_family_transactions(@Body req: Transaction?): Call<List<TransactionResp>>
+
+    @GET("/compas/rest/member/gtEclaimMembers")
+    fun get_member_claims(@Query("memberNo") memberNo:String): Call<MemberClaims>
+
 }

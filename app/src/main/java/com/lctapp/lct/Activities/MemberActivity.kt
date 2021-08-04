@@ -14,7 +14,13 @@ import androidx.cardview.widget.CardView
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.android.extension.responseJson
 import com.google.gson.Gson
+import com.lctapp.lct.Classes.Api.HospitalsAPi
+import com.lctapp.lct.Classes.Constants.APIClient
+import com.lctapp.lct.Classes.Helpers.Loader
 import com.lctapp.lct.Classes.MemberData
+import com.lctapp.lct.Classes.Models.MemberClaims.MemberClaims
+import com.lctapp.lct.Classes.Models.Member.MemberDetails
+import com.lctapp.lct.Classes.Models.Payloads.Member
 import com.lctapp.lct.Classes.Variables
 import com.lctapp.lct.Classes.utills.toast
 import com.lctapp.lct.R
@@ -24,6 +30,9 @@ import org.imaginativeworld.oopsnointernet.ConnectionCallback
 import org.imaginativeworld.oopsnointernet.NoInternetDialog
 import org.json.JSONArray
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import timber.log.Timber
 
 
@@ -35,6 +44,8 @@ class MemberActivity : AppCompatActivity() {
     var sharedpreferences: SharedPreferences? = null
     // No Internet Dialog
     private var noInternetDialog: NoInternetDialog? = null
+    var l: Loader = Loader
+    private var apiC: HospitalsAPi? = null
 
     //private var preferenceHelper: PreferenceHelper? = null
     private var mProgressDialog: ProgressDialog? = null
@@ -44,7 +55,7 @@ class MemberActivity : AppCompatActivity() {
         setContentView(R.layout.activity_member)
         Variables.setDependantChecker(0)
 
-
+        apiC = APIClient.client?.create(HospitalsAPi::class.java)
 
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE)
@@ -125,17 +136,169 @@ class MemberActivity : AppCompatActivity() {
         return true
     }
     private fun Search() {
-        showSimpleProgressDialog(this@MemberActivity , null , "fetching..." , false)
-        try {
+        get_member_claims(member)
+//        showSimpleProgressDialog(this@MemberActivity , null , "fetching..." , false)
+//        try {
+//
+//            Fuel.get(fetchURL).responseJson { request , response , result ->
+//                Log.e("response: " , result.get().content)
+//                onTaskCompleted(result.get().content)
+//            }
+//        } catch (e: Exception) {
+//            Log.e("Exception", e.toString())
+//        }
+    }
 
-            Fuel.get(fetchURL).responseJson { request , response , result ->
-                Log.e("response: " , result.get().content)
-                onTaskCompleted(result.get().content)
-            }
+
+    private fun get_member_claims(memberNo:String)
+    {
+        l.showprogress(this@MemberActivity,"please wait......")
+        try {
+            val payload_details = Member(memberNo)
+            val call: Call<MemberClaims> = apiC!!.get_member_claims(memberNo)
+            call.enqueue(object : Callback<MemberClaims> {
+                override fun onResponse(
+                    call: Call<MemberClaims>,
+                    response: Response<MemberClaims>
+                ) {
+                    l.dismissprogress()
+                    if (!response.isSuccessful) {
+                        var errorBodyString = ""
+                        try {
+                            errorBodyString = response.errorBody()!!.string()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                        Loader.toastError(this@MemberActivity, errorBodyString)
+                        l.dismissprogress()
+                        return
+                    }
+                    val resp: MemberClaims? = response.body()
+                    if(resp!!.getMemberId() != "0")
+                    {
+                        populate_parameters(resp)
+                    }
+                    else
+                    {
+                        Loader.toast(this@MemberActivity, "An error occurred getting member details")
+                    }
+
+                }
+
+                override fun onFailure(call: Call<MemberClaims>, t: Throwable) {
+                    Loader.toastError(this@MemberActivity, t.message!!)
+                    l.dismissprogress()
+                }
+            })
         } catch (e: Exception) {
-            Log.e("Exception", e.toString())
+            Loader.toast(this@MemberActivity, "Error getting member details")
+            l.dismissprogress()
         }
     }
+
+
+    private fun populate_parameters(resp: MemberClaims)
+    {
+
+
+        txtName.text = resp.getFullName()
+
+        txtDateofBirth.text = resp.getDateOfBirth()
+
+        var gender = resp.getGender()
+
+        if (gender == "M") {
+            gender = "MALE"
+        }
+
+        if (gender == "F"){
+            gender = "FEMALE"
+        }
+
+        txtGender.text = gender
+
+        var type = resp.getMemberType()
+
+
+        if (type== "P"){
+            type = "Principal"
+            if (type =="D"){
+                type = "Dependant"
+            }
+        }
+        txtType.text = type
+
+
+        Scheme.text=resp.getScheme()
+
+        txtStatus.text=resp.getOutpatientStatus()
+
+
+        txtProg.text = resp.getProgrammes().get(0).getProgrammeDesc()
+
+        txtVoucher.text = resp.getProgrammes().get(0).getMembervouchers().get(0).getVoucherDesc()
+
+
+        txtValue.text = resp.getProgrammes().get(0).getMembervouchers().get(0).getServices().get(0).getPrice().toString()
+
+
+        txtPayer.text = resp.getPayer()
+
+
+        if(resp.getFamilyMemList().size > 0)
+        {
+            txtspouse.text = resp.getFamilyMemList().get(0).getFamMemFullName()
+            spouse.text = resp.getFamilyMemList().get(0).getFamMemberNo()
+            spouse.setOnClickListener {
+                Variables.setDependantNumber(spouse.text.toString())
+                Variables.setDependantChecker(1)
+                // intent
+                val intent = Intent(this, Profile::class.java)
+                startActivity(intent)
+            }
+        }
+
+
+
+        if(resp.getFamilyMemList().size > 1) {
+            txtchild.text = resp.getFamilyMemList().get(1).getFamMemFullName()
+            child.text = resp.getFamilyMemList().get(1).getFamMemberNo()
+            child.setOnClickListener {
+                Variables.setDependantNumber(child.text.toString())
+                Variables.setDependantChecker(1)
+                //intent
+                val intent = Intent(this, Profile::class.java)
+                startActivity(intent)
+            }
+        }
+
+        if(resp.getFamilyMemList().size > 2) {
+            Child.text = resp.getFamilyMemList().get(2).getFamMemFullName()
+            baby.text = resp.getFamilyMemList().get(2).getFamMemberNo()
+            baby.setOnClickListener {
+                Variables.setDependantNumber(baby.text.toString())
+                Variables.setDependantChecker(1)
+                //intent
+                val intent = Intent(this, Profile::class.java)
+                startActivity(intent)
+
+            }
+        }
+
+        if(resp.getFamilyMemList().size > 3) {
+            aChild.text = resp.getFamilyMemList().get(3).getFamMemFullName()
+            youth.text = resp.getFamilyMemList().get(3).getFamMemberNo()
+            youth.setOnClickListener {
+                Variables.setDependantNumber(youth.text.toString())
+                Variables.setDependantChecker(1)
+                //intent
+                val intent = Intent(this, Profile::class.java)
+                startActivity(intent)
+            }
+        }
+
+    }
+
     private fun onTaskCompleted(response: String) {
         Log.e("responsejson" , response)
         removeSimpleProgressDialog()  //will remove progress dialog
@@ -284,6 +447,10 @@ class MemberActivity : AppCompatActivity() {
 
         Log.e("##CHECK >>" , "three")
     }
+
+
+
+
 
     fun showSimpleProgressDialog(
         context: Context ,
