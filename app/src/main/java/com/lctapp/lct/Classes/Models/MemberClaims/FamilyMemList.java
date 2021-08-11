@@ -1,6 +1,8 @@
 package com.lctapp.lct.Classes.Models.MemberClaims;
 
-public class FamilyMemList{
+import java.io.Serializable;
+
+public class FamilyMemList implements Serializable {
     public int memberId;
     public int familyMemId;
     public String famMemberNo;

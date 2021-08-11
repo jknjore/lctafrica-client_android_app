@@ -5,9 +5,10 @@ import com.lctapp.lct.Classes.Models.MemberClaims.FamilyMemList;
 import com.lctapp.lct.Classes.Models.MemberClaims.Voucher;
 import com.lctapp.lct.Classes.Models.MemberClaims.Programme;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MemberClaims {
+public class MemberClaims implements Serializable {
     public String memberId;
     public int customerId;
     public Object merchantId;

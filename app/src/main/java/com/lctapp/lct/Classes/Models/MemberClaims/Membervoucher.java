@@ -2,9 +2,10 @@ package com.lctapp.lct.Classes.Models.MemberClaims;
 
 import com.lctapp.lct.Classes.Models.MemberClaims.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Membervoucher{
+public class Membervoucher implements Serializable {
     public int voucherId;
     public Object voucherCode;
     public String voucherDesc;

@@ -21,11 +21,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NotificationCompat
+import androidx.viewpager2.widget.ViewPager2
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.android.extension.responseJson
 import com.github.kittinunf.fuel.core.HttpException
 import com.google.gson.Gson
 import com.lctapp.lct.*
+import com.lctapp.lct.Classes.Adapters.ViewPagerAdapter
 import com.lctapp.lct.Classes.Api.HospitalsAPi
 import com.lctapp.lct.Classes.Constants.APIClient
 import com.lctapp.lct.Classes.Helpers.General
@@ -45,6 +47,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.Serializable
+import java.util.*
 import com.google.android.material.imageview.ShapeableImageView as ShapeableImageView1
 
 class HomepageActivity: AppCompatActivity() {
@@ -66,6 +69,7 @@ class HomepageActivity: AppCompatActivity() {
     private var Scheme:String =""
     var l: Loader = Loader
     private var apiC: HospitalsAPi? = null
+    lateinit var viewpage: ViewPager2
     // No Internet Dialog
     //private var noInternetDialog: NoInternetDialog? = null
 
@@ -77,13 +81,17 @@ class HomepageActivity: AppCompatActivity() {
     private var mProgressDialog: ProgressDialog? = null
 
     lateinit var notificationButton:TextView
-    lateinit var membInfo: MemberData
+    lateinit var membInfo: MemberClaims
 
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
+
+        viewpage = findViewById(R.id.viewPager)
+
+        //populateViewPager(JSONObject())
 
         Log.e("####called create", "so many times")
         //instantiating sharedpreferences
@@ -312,10 +320,10 @@ class HomepageActivity: AppCompatActivity() {
         var message: String=""
 
         message = when (c.get(Calendar.HOUR_OF_DAY)) {
-            in 0..11 -> "Good Morning,"
-            in 12..15 -> "Good Afternoon,"
-            in 16..20 -> "Good Evening,"
-            in 21..23 -> "Good Night,"
+            in 0..11 -> "Good Morning, "
+            in 12..15 -> "Good Afternoon, "
+            in 16..20 -> "Good Evening, "
+            in 21..23 -> "Good Evening, "
             else -> {
                 "Hello"
             }
@@ -371,6 +379,7 @@ class HomepageActivity: AppCompatActivity() {
                     if(resp!!.getMemberId() != "0")
                     {
                         populate_parameters(resp!!)
+                        populateViewPager(resp)
                     }
                     else
                     {
@@ -393,6 +402,7 @@ class HomepageActivity: AppCompatActivity() {
 
     private fun populate_parameters(resp: MemberClaims)
     {
+        membInfo = resp
 
             try {
                 if (resp.getMemberPic() != null) {
@@ -448,7 +458,7 @@ class HomepageActivity: AppCompatActivity() {
             val jsonObject = JSONObject(response)
             var m: MemberData
             val gson = Gson()
-             membInfo = gson.fromJson(jsonObject.toString(), MemberData::class.java)
+             membInfo = gson.fromJson(jsonObject.toString(), MemberClaims::class.java)
 
 
             Log.e("###MemberInfo>>: " , membInfo.fullName.toString())
@@ -585,6 +595,18 @@ class HomepageActivity: AppCompatActivity() {
 
 
         return mbitmap
+    }
+
+
+    private fun populateViewPager(resp:MemberClaims){
+
+        val adapter = ViewPagerAdapter(resp)
+        viewpage.adapter = adapter
+
+        //used to mke the viewpager makes self drags
+//        viewpage.beginFakeDrag()
+//        viewpage.fakeDragBy(-1f)
+//        viewpage.endFakeDrag()
     }
 
 }

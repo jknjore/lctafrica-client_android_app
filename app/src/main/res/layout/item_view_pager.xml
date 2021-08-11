@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+
+        >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/displayView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/cardview3"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp">
+        <TextView
+            android:id="@+id/cover_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="TOTAL SPENT THIS MONTH"
+            android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/cover_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="wwwwwww"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff" />
+        <TextView
+            android:id="@+id/dailyAverage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BALANCE"
+            android:textColor="#ffffff"
+            android:layout_marginTop="80dp"
+            />
+        <TextView
+            android:id="@+id/cover_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="weewisikdjjjwewkksdnj"
+            android:textColorHint="#ffffff"
+            android:textColor="#ffffff"
+            />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

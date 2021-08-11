@@ -32,6 +32,8 @@ import com.lctapp.lct.Classes.Helpers.AppConstants.START_VISIT_URL
 import com.lctapp.lct.Classes.Helpers.AppConstants.VALIDATE_LOCATION_URL
 import com.lctapp.lct.Classes.MemberData
 import com.lctapp.lct.Classes.Models.HospitalData
+import com.lctapp.lct.Classes.Models.MemberClaims.FamilyMemList
+import com.lctapp.lct.Classes.Models.MemberClaims.MemberClaims
 import com.lctapp.lct.Classes.Models.Payloads.Member
 import com.lctapp.lct.Classes.Models.Payloads.StartVisitData
 import com.lctapp.lct.Classes.Models.Payloads.UserLocationData
@@ -58,7 +60,7 @@ class StartVisit : AppCompatActivity() {
     var deciding =0
     var invoice =""
     var l: Loader = Loader
-    lateinit var memberInfo:MemberData
+    lateinit var memberInfo:MemberClaims
     var s:Saver = Saver()
 
     var locationValidated:Boolean = false
@@ -96,12 +98,12 @@ class StartVisit : AppCompatActivity() {
             finish()
         }
 
-      memberInfo= intent.getSerializableExtra("MemberData") as MemberData
+      memberInfo= intent.getSerializableExtra("MemberData") as MemberClaims
         Log.e("####FromStart",memberInfo.fullName.toString())
 
         val output: MutableList<String> = ArrayList()
         output.add(memberInfo.fullName.toString()+ " : " + memberInfo.memberNo)
-        for (f:FamilyMembers in memberInfo.familyMemList!!) {
+        for (f: FamilyMemList in memberInfo.familyMemList!!) {
                 output.add(f.famMemFullName.toString()+ " : " + f.famMemberNo)
             }
 

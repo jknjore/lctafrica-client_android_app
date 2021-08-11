@@ -1,6 +1,8 @@
 package com.lctapp.lct.Classes.Models.MemberClaims;
 
-public class Service{
+import java.io.Serializable;
+
+public class Service implements Serializable {
     public int parentServiceId;
     public int level;
     public boolean hasChild;

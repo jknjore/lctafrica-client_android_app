@@ -84,31 +84,23 @@
             android:gravity="center"
             android:text="  Change  "
             android:textColor="#02075d"
-            app:layout_constraintBottom_toTopOf="@+id/submitCard"
+            app:layout_constraintBottom_toTopOf="@+id/Submit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/selectedhospital" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/submitCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/changeHospital">
 
             <Button
                 android:id="@+id/Submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/changeHospital"
+
                 android:text="Start Visit" />
 
-        </androidx.cardview.widget.CardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

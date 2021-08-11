@@ -72,10 +72,30 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
+                    android:layout_gravity="start|left"
+                    android:layout_marginTop="2dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="2dp"
-                    android:gravity="center_horizontal"
+                    android:gravity="start|left"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:id="@+id/navDrawer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|left"
+                        android:src="@drawable/navigation_drawer"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|right"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="end|right"
                     android:orientation="horizontal">
 
                     <TextView
@@ -86,12 +106,11 @@
                         android:layout_marginEnd="20dp"
                         android:clickable="true"
                         android:focusable="true"
-                        android:gravity="center_horizontal"
+                        android:gravity="end|right"
                         android:text="&#8942;"
                         android:textColor="#000000"
                         android:textSize="25sp" />
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="100dp"
@@ -131,36 +150,27 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/greetingDisplay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:hint="Greetings,"
-                        android:textStyle="italic"
-                        app:layout_constraintBottom_toTopOf="@+id/cardView"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textStyle="italic"/>
 
                     <TextView
                         android:id="@+id/Name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
                         android:hint="@string/full_name"
                         android:visibility="visible"
                         android:textStyle="bold"
                         android:textColor="#000000"
-                        app:layout_constraintBottom_toTopOf="@+id/cardView"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         />
                     <!--                    <TextView-->
                     <!--                        android:id="@+id/memberId"-->
@@ -180,18 +190,26 @@
                         android:id="@+id/policy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="invisible" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
 
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
 
+                    >
+                </androidx.viewpager2.widget.ViewPager2>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/cardview4"
                     android:backgroundTint="#ffffff"
                     android:layout_marginBottom="6dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -231,7 +249,8 @@
                         android:text="MEMBER NUMBER:"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold"
-                        />
+                        android:padding="2dp"/>
+
 
                     <TextView
                         android:id="@+id/memberNo"
@@ -615,7 +634,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/member_details"
+                                        android:text="Member\nDetails"
                                         android:textStyle="normal"
                                         android:textColor="@color/black"
                                         android:textAlignment="center"/>
@@ -660,7 +679,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/benefit_balance"
+                                        android:text="Benefit\nBalance"
                                         android:textColor="@color/black"
                                         android:textStyle="normal"
                                         android:textAlignment="center"
@@ -707,7 +726,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Utilization Report"
+                                        android:text="Utilization\nReport"
                                         android:textColor="@color/black"
                                         android:textStyle="normal"
                                         android:textAlignment="center"/>
@@ -761,7 +780,8 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Frequently asked \n questions"
+                                        android:text="FAQS"
+                                        android:textSize="18sp"
                                         android:textStyle="normal"
                                         android:textColor="@color/black"
                                         android:textAlignment="center" />
@@ -847,7 +867,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text=" Hospital Visit"
+                                    android:text="Hospital\nVisit"
                                     android:textAlignment="center"
                                     android:layout_gravity="center"
                                     android:gravity="center"
