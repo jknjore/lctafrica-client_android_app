@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.lctapp.lct.Classes.Api.HospitalsAPi
 import com.lctapp.lct.Classes.Constants.APIClient
+import com.lctapp.lct.Classes.Helpers.General
 import com.lctapp.lct.Classes.Helpers.Loader
 import com.lctapp.lct.Classes.Models.Payloads.Member
 import com.lctapp.lct.Classes.Models.Responses.LoginResp
@@ -126,6 +127,7 @@ class ForgotPassword : AppCompatActivity() {
                         return
                     }
                     val resp: LoginResp? = response.body()
+                    Log.e("###resp",General.getDump(resp));
                     if(resp?.respCode == 200)
                     {
                         Toast.makeText(

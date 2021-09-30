@@ -38,6 +38,7 @@ import com.lctapp.lct.Classes.Models.Payloads.Member
 import com.lctapp.lct.Classes.Models.Payloads.StartVisitData
 import com.lctapp.lct.Classes.Models.Payloads.UserLocationData
 import com.lctapp.lct.Classes.Models.Responses.GeneralResponse
+import com.lctapp.lct.Classes.Models.ScanData
 import com.lctapp.lct.Classes.utills.toast
 import com.lctapp.lct.R
 import kotlinx.android.synthetic.main.activity_start_visit.*
@@ -47,6 +48,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.Serializable
+import java.text.SimpleDateFormat
 import java.util.*
 
 class StartVisit : AppCompatActivity() {
@@ -155,8 +157,8 @@ class StartVisit : AppCompatActivity() {
         submitbtn?.setOnClickListener(View.OnClickListener {
 
             if (MerchantID == 0) {
-                toast("Please select A Hospital to Continue")
-                return@OnClickListener
+                //toast("Please select A Hospital to Continue")
+               // return@OnClickListener
             }
 
             if (General.mapsok(this)) {
@@ -354,6 +356,15 @@ class StartVisit : AppCompatActivity() {
 
     }
 
+    fun open_barcode(latitude:Double,longitude:Double)
+    {
+        val i =  Intent(this@StartVisit,QRCodeActivity::class.java);
+        val scandata:ScanData= ScanData(latitude.toString(),longitude.toString(),selectedMemberNo,
+            SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( Date())
+        )
+        i.putExtra("scandata", scandata as Serializable?)
+        startActivity(i)
+    }
 
     fun start_visit() {
 
@@ -442,11 +453,12 @@ class StartVisit : AppCompatActivity() {
         Log.e("###here","haha")
 
         if (MerchantID == 0) {
-           toast("Please select A Hospital to Continue")
-            return
+           //toast("Please select A Hospital to Continue")
+           // return
         } else {
            // showSimpleProgressDialog(this@StartVisit , null , "Loading..." , false)
-            validate_user_location(MerchantID,lat_,long_)
+            //validate_user_location(MerchantID,lat_,long_)
+            open_barcode(lat_,long_)
 
 //            Log.e("###here2","haha")
 //            val det =
@@ -543,8 +555,8 @@ class StartVisit : AppCompatActivity() {
         }
 
         if (MerchantID == 0) {
-           toast("Please select A Hospital to Continue")
-            return
+           //toast("Please select A Hospital to Continue")
+            //return
         } else {
            // showSimpleProgressDialog(this@StartVisit , null , "Loading..." , false)
 

@@ -43,10 +43,12 @@
         android:label="LCT AFRICA"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
-        <activity android:name=".Activities.SelectHospital"></activity>
+        <activity
+            android:name=".Activities.QRCodeActivity"></activity>
+        <activity android:name=".Activities.SelectHospital" />
         <activity android:name=".Activities.StartVisit" />
         <activity android:name=".Activities.ContactUs" />
         <activity android:name=".Activities.AboutLct" />
@@ -72,8 +74,9 @@
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.SignupActivity" />
         <activity android:name=".Activities.MemberActivity" />
-        <activity android:name=".Activities.HomepageActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".Activities.HomepageActivity"
+            android:launchMode="singleTop" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

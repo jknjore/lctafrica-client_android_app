@@ -167,7 +167,7 @@ class HomepageActivity: AppCompatActivity() {
 
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
+//        setSupportActionBar(toolbar)
         supportActionBar!!.setTitle(R.string.app_name)
 
         // options menu
