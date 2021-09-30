@@ -452,10 +452,7 @@ class StartVisit : AppCompatActivity() {
     private fun validateLocation(lat_:Double,long_:Double){
         Log.e("###here","haha")
 
-        if (MerchantID == 0) {
-           //toast("Please select A Hospital to Continue")
-           // return
-        } else {
+
            // showSimpleProgressDialog(this@StartVisit , null , "Loading..." , false)
             //validate_user_location(MerchantID,lat_,long_)
             open_barcode(lat_,long_)
@@ -485,7 +482,7 @@ class StartVisit : AppCompatActivity() {
 //            }
 //
 //            toast("Your Visit has been Started Successfully.")
-        }
+
     }
 
 
@@ -554,10 +551,7 @@ class StartVisit : AppCompatActivity() {
             Log.e("####FamilyDependents",selectedMemberNo)
         }
 
-        if (MerchantID == 0) {
-           //toast("Please select A Hospital to Continue")
-            //return
-        } else {
+
            // showSimpleProgressDialog(this@StartVisit , null , "Loading..." , false)
 
             start_hospital_visit(MerchantID,selectedMemberNo,AppConstants.START_VISIT_DEVICEID,member)
@@ -586,7 +580,7 @@ class StartVisit : AppCompatActivity() {
 //            }
 
             //toast("Your hospital visit has been started successfully.")
-        }
+
     }
 
 
