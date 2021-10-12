@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app = "http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id ="@+id/aboutLct"
-        android:title ="@string/about_lct"
+        android:id ="@+id/profile"
+        android:title="My Profile"
         app:showAsAction="never"/>
+
+
+    <item
+        android:id ="@+id/faq"
+        android:title="FAQ"
+        app:showAsAction="never"/>
+
     <item
         android:id ="@+id/contactUs"
         android:title="@string/contact_us"
         app:showAsAction="never"/>
-    <item
-        android:id="@+id/notifications"
-        android:title="Notifications!"
-        app:showAsAction="always"/>
-<!--    <item-->
-<!--        android:id="@+id/switchAcc"-->
-<!--        android:title="@string/switch_account"-->
-<!--        app:showAsAction="never"-->
-<!--         />-->
+
+
     <item
         android:id ="@+id/logout"
         android:title="@string/logout"

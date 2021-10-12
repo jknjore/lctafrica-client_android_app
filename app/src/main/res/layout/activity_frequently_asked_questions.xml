@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activities.FrequentlyAskedQuestions">
+    tools:context=".Activities.FrequentlyAskedQuestions"
+    android:groupIndicator="@drawable/expandable_indicator"
+    android:background="@color/white"
+    android:backgroundTint="@color/white">
 
 
 
     <ExpandableListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/expandableListView"
         android:layout_margin="10dp"
         android:dividerHeight="1dp"

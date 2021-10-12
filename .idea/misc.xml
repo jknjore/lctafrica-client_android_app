@@ -3,8 +3,38 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable-v24/border.xml" value="0.3828125" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable/button_bg.xml" value="0.3828125" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable/cardview3.xml" value="0.3828125" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable/cardview_bg.xml" value="0.3828125" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable/edittex_shape.xml" value="0.3828125" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable/expandable_indicator.xml" value="0.3828125" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable/ic_arrow_down.xml" value="0.3828125" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable/ic_arrow_up.xml" value="0.39479166666666665" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable/ic_person.xml" value="0.3828125" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable/input_bg.xml" value="0.3828125" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable/layout_shadow.xml" value="0.3828125" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable/password.xml" value="0.3828125" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/drawable/user.xml" value="0.3828125" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout-v28/activity_homepage.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/activity_about_lct.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/activity_contact_us.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/activity_frequently_asked_questions.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/activity_homepage.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/activity_launcher.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/activity_member.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/activity_qrcode.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/activity_service_balances.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/activity_start_visit.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/activity_transaction.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/dependants_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/fragment_complementary.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/fragment_inpatient.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/fragment_outpatient.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/hospitalrvh.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/layout/item_view_pager.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jkimani/Desktop/LCT/Projects/lctafrica-client_android_app/app/src/main/res/menu/homepage_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

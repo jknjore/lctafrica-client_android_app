@@ -68,6 +68,8 @@ class TransactionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction)
+        getActionBar()?.setDisplayHomeAsUpEnabled(true);
+        setTitle("My Transactions")
 
         mylist = findViewById<ListView>(R.id.mylist)as ListView
         apiC = APIClient.client?.create(HospitalsAPi::class.java)

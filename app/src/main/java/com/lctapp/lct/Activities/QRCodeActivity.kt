@@ -27,6 +27,7 @@ import android.view.Display
 
 import android.view.WindowManager
 import android.util.DisplayMetrics
+import android.widget.TextView
 import com.fasterxml.jackson.databind.ObjectMapper
 import java.lang.Exception
 import java.text.SimpleDateFormat
@@ -38,7 +39,9 @@ class QRCodeActivity : AppCompatActivity() {
     private val qrgEncoder: QRGEncoder? = null
     lateinit var mainHandler: Handler
     lateinit var scandata: ScanData
+    private var selectedMemberName:String = ""
     lateinit var qr_image: ImageView
+    lateinit var patient_name: TextView
 
 
 
@@ -50,7 +53,9 @@ class QRCodeActivity : AppCompatActivity() {
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true); // for add back arrow in action bar
 
         scandata = intent.extras!!.getSerializable("scandata") as ScanData
+        selectedMemberName = intent.getStringExtra("selectedMemberName")!!
         qr_image=findViewById<ImageView>(R.id.qr_image)
+        patient_name=findViewById<TextView>(R.id.patient_name)
 
 
         val displayMetrics = DisplayMetrics()
@@ -60,7 +65,7 @@ class QRCodeActivity : AppCompatActivity() {
         qr_image.layoutParams.height=device_width-20
 
         mainHandler = Handler(Looper.getMainLooper())
-
+        patient_name.text=selectedMemberName
 
     }
 

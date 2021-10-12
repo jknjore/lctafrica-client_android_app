@@ -39,7 +39,7 @@ class SelectHospital : AppCompatActivity() {
         ct = intent.extras!!.getSerializable("hospitalsRv") as List<HospitalData>?
         Log.e("####>>>ct",General.getDump(ct))
         adapter = SelectHospitalAdapter(ct, this)
-        hospitalsRv?.setHasFixedSize(true)
+        hospitalsRv?.setHasFixedSize(false)
         hospitalsRv?.setLayoutManager(LinearLayoutManager(this))
         hospitalsRv?.setAdapter(adapter)
 

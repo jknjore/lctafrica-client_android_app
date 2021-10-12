@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.LCT" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryVariant">@color/blue_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/sky</item>
+        <item name="colorSecondaryVariant">@color/sky_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowActivityTransitions">true</item>
+
+        <item name="actionBarStyle">@style/BlackActionBar</item>
+
+
+        <!-- specify enter and exit transitions
+        <item name="android:windowEnterTransition">@transition/explode</item>
+        <item name="android:windowExitTransition">@transition/explode</item>
+-->
+
+        <!-- specify shared element transitions
+        <item name="android:windowSharedElementEnterTransition">@transition/change_image_enter_transform</item>
+        <item name="android:windowSharedElementExitTransition">@transition/change_image_exit_transform</item>
+        <item name="android:windowSharedElementReenterTransition">@transition/change_image_enter_transform</item>
+        <item name="android:windowSharedElementReturnTransition">@transition/change_image_exit_transform</item>
+ -->
+
+
+        <!--        register global animation-->
+        <!--        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>-->
+
+    </style>
+
+
+    <style name="BlackActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
+        <item name="background">@color/sky</item>
+        <item name="titleTextStyle">@style/BlackActionBarTitleTextStyle</item>
+    </style>
+
+    <style name="BlackActionBarTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Theme.BG" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+
+
+           <item name="android:backgroundTint">@color/white</item>
+
+
+        <!-- specify enter and exit transitions
+        <item name="android:windowEnterTransition">@transition/explode</item>
+        <item name="android:windowExitTransition">@transition/explode</item>
+-->
+
+        <!-- specify shared element transitions
+        <item name="android:windowSharedElementEnterTransition">@transition/change_image_enter_transform</item>
+        <item name="android:windowSharedElementExitTransition">@transition/change_image_exit_transform</item>
+        <item name="android:windowSharedElementReenterTransition">@transition/change_image_enter_transform</item>
+        <item name="android:windowSharedElementReturnTransition">@transition/change_image_exit_transform</item>
+ -->
+
+
+        <!--        register global animation-->
+        <!--        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>-->
+
+    </style>
+</resources>

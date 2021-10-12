@@ -3,7 +3,13 @@
     <color name="colorPrimary">#02075d</color>
     <color name="colorPrimaryDark">#66eee3ff</color>
     <color name="colorAccent">#03DAC5</color>
-
+    <color name="blue">#01579b</color>
+    <color name="blue_dark">#002f6c</color>
+    <color name="blue_light">#4f83cc</color>
+    <color name="sky">#0091ea</color>
+    <color name="sky_dark">#0064b7</color>
+    <color name="sky_light">#64c1ff</color>
+    <color name="gray">#808080</color>
 
 <!-- From: file:/Users/balysv/AndroidStudioProjects/MaterialRipple/library/src/main/res/values/colors.xml -->
 <eat-comment/>

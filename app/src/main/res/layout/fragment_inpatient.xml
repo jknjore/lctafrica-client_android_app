@@ -6,11 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/edittex_shape"
-    tools:context=".InpatientFragment">
+    tools:context=".InpatientFragment"
+    android:backgroundTint="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent" >
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:backgroundTint="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,7 +23,10 @@
             tools:ignore="MissingConstraints"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
+            >
 
             <androidx.core.widget.ContentLoadingProgressBar
                 android:id="@+id/pBar"
@@ -62,7 +68,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:backgroundTint="@color/white">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -179,7 +187,6 @@
             android:id="@+id/card_view"
             android:layout_width="329dp"
             android:layout_height="181dp"
-            android:layout_marginBottom="10dp"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -188,8 +195,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:backgroundTint="@color/white">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -295,9 +304,11 @@
             tools:ignore="MissingConstraints">
 
             <LinearLayout
-                android:layout_width="329dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:backgroundTint="@color/white">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -403,7 +414,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:backgroundTint="@color/white">
 
                 <TextView
                     android:layout_width="match_parent"

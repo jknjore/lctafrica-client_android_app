@@ -6,15 +6,13 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.icu.util.Calendar
+import java.util.Calendar;
 import android.os.Build
 import android.os.Bundle
+import android.system.Os.remove
 import android.util.Base64
 import android.util.Log
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
+import android.view.*
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -26,6 +24,7 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.android.extension.responseJson
 import com.github.kittinunf.fuel.core.HttpException
 import com.google.gson.Gson
+import com.google.zxing.common.StringUtils
 import com.lctapp.lct.*
 import com.lctapp.lct.Classes.Adapters.ViewPagerAdapter
 import com.lctapp.lct.Classes.Api.HospitalsAPi
@@ -40,8 +39,8 @@ import com.lctapp.lct.Classes.Variables
 import com.lctapp.lct.Classes.security.Biometric
 import com.lctapp.lct.Classes.utills.toast
 import kotlinx.android.synthetic.main.activity_homepage.*
-import kotlinx.android.synthetic.main.activity_homepage.txtName
 import kotlinx.android.synthetic.main.activity_member.*
+import kotlinx.android.synthetic.main.activity_transaction.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,6 +48,9 @@ import retrofit2.Response
 import java.io.Serializable
 import java.util.*
 import com.google.android.material.imageview.ShapeableImageView as ShapeableImageView1
+import java.nio.file.Files.delete
+import kotlin.to
+
 
 class HomepageActivity: AppCompatActivity() {
 
@@ -59,7 +61,6 @@ class HomepageActivity: AppCompatActivity() {
     var useBio = 0
     private var verified:Boolean = false
     lateinit var bios:Biometric
-    lateinit var btnLogout: Button
     var member:String=""
     var cardViewhURL: String = ""
     val MyPREFERENCES = "MyPrefs"
@@ -70,6 +71,11 @@ class HomepageActivity: AppCompatActivity() {
     var l: Loader = Loader
     private var apiC: HospitalsAPi? = null
     lateinit var viewpage: ViewPager2
+    lateinit var member_number: TextView
+    lateinit var scheme_name: TextView
+    lateinit var benefit_balance: LinearLayout
+    lateinit var utilization_report: LinearLayout
+    lateinit var see_doctor: LinearLayout
     // No Internet Dialog
     //private var noInternetDialog: NoInternetDialog? = null
 
@@ -81,8 +87,7 @@ class HomepageActivity: AppCompatActivity() {
     private var mProgressDialog: ProgressDialog? = null
 
     lateinit var notificationButton:TextView
-    lateinit var membInfo: MemberClaims
-
+    var membInfo: MemberClaims = MemberClaims()
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,6 +95,12 @@ class HomepageActivity: AppCompatActivity() {
         setContentView(R.layout.activity_homepage)
 
         viewpage = findViewById(R.id.viewPager)
+        member_number = findViewById(R.id.member_number)
+        scheme_name = findViewById(R.id.scheme_name)
+        benefit_balance = findViewById(R.id.benefit_balance)
+        utilization_report = findViewById(R.id.utilization_report)
+        see_doctor = findViewById(R.id.see_a_doctor)
+        setTitle("LCT - Home")
 
         //populateViewPager(JSONObject())
 
@@ -110,8 +121,8 @@ class HomepageActivity: AppCompatActivity() {
         editor.putString("images", images)
         editor.apply()
 
-        val bio = findViewById<View>(R.id.fingerPrintView)
-        val home = findViewById<View>(R.id.homeView)
+        //val bio = findViewById<View>(R.id.fingerPrintView)
+
 
         firstTimeLogin = sharedpreferences?.getInt("firstTimeLogin",0)!!
 
@@ -139,7 +150,6 @@ class HomepageActivity: AppCompatActivity() {
                 useBio = 1
                 editor.putInt("useBio", useBio)
                 editor.commit()
-                bio.visibility = View.VISIBLE
                 bios = Biometric(this)
                 Log.e("###>>>BIOMETRICS",bios.toString())
                 bios.showBioDialog()
@@ -156,7 +166,6 @@ class HomepageActivity: AppCompatActivity() {
         }
 
         if( useBio == 1){
-            bio.visibility = View.VISIBLE
             bios = Biometric(this)
             bios.showBioDialog()
 
@@ -166,18 +175,16 @@ class HomepageActivity: AppCompatActivity() {
         }
 
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-//        setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle(R.string.app_name)
+        //val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
         // options menu
-        val options = findViewById<TextView>(R.id.optionMenu)
+//        val options = findViewById<TextView>(R.id.optionMenu)
+//
+//        options.setOnClickListener {
+//            showPopup(it)
+//        }
 
-        options.setOnClickListener {
-            showPopup(it)
-        }
 
-        btnLogout = findViewById(R.id.btnLogout)
 
         pic = findViewById(R.id.selfie)
 
@@ -204,52 +211,71 @@ class HomepageActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
-
-        val  imgbasketBalance = findViewById(R.id.imgbasketBalance) as ImageButton
-        imgbasketBalance.setOnClickListener {
+        benefit_balance.setOnClickListener {
             val intent = Intent(this@HomepageActivity, ServiceBalances::class.java)
             startActivity(intent)
         }
 
-        val imgbMemberDetails = findViewById(R.id.imgbMemberDetails) as ImageButton
-        imgbMemberDetails.setOnClickListener {
-            Log.e("###Memberdetails", member)
-            val intent = Intent(this@HomepageActivity, MemberActivity::class.java)
-            startActivity(intent)
-        }
-
-
-        val imgtransactionHistory = findViewById<ImageButton>(R.id.imgtransactionHistory) as ImageButton
-        imgtransactionHistory.setOnClickListener {
+        utilization_report.setOnClickListener {
             val intent = Intent(this@HomepageActivity, TransactionActivity::class.java)
             startActivity(intent)
         }
 
-        val img6 = findViewById<ImageButton>(R.id.imgFaqs) as ImageButton
-        img6.setOnClickListener {
-            val intent = Intent(this@HomepageActivity, FrequentlyAskedQuestions::class.java)
-            startActivity(intent)
-            Toast.makeText(this, "Frequently Asked Questions and Answers", Toast.LENGTH_SHORT).show()
-        }
-
-        val bmi = findViewById<ImageButton>(R.id.bmiImageView) as ImageButton
-        bmi.setOnClickListener {
-            val intent =Intent(this@HomepageActivity, BmiCalculator::class.java)
-            startActivity(intent)
-
-        }
-
-        val hospitalVisit =findViewById<ImageButton>(R.id.hospitalVisit) as ImageButton
-        hospitalVisit.setOnClickListener {
+        see_doctor.setOnClickListener {
+            System.out.println("membInfo_"+General.getDump(membInfo))
+            if(membInfo.memberId == null)
+            {
+                toast("Please try again later")
+                return@setOnClickListener;
+            }
 
             val intent = Intent(this,StartVisit::class.java)
             intent.putExtra("MemberData",membInfo as Serializable)
             startActivity(intent)
         }
 
-        btnLogout.setOnClickListener {
-            logout()
-        }
+//        val  imgbasketBalance = findViewById(R.id.imgbasketBalance) as ImageButton
+//        imgbasketBalance.setOnClickListener {
+//            val intent = Intent(this@HomepageActivity, ServiceBalances::class.java)
+//            startActivity(intent)
+//        }
+//
+//        val imgbMemberDetails = findViewById(R.id.imgbMemberDetails) as ImageButton
+//        imgbMemberDetails.setOnClickListener {
+//            Log.e("###Memberdetails", member)
+//            val intent = Intent(this@HomepageActivity, MemberActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//
+//        val imgtransactionHistory = findViewById<ImageButton>(R.id.imgtransactionHistory) as ImageButton
+//        imgtransactionHistory.setOnClickListener {
+//            val intent = Intent(this@HomepageActivity, TransactionActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//        val img6 = findViewById<ImageButton>(R.id.imgFaqs) as ImageButton
+//        img6.setOnClickListener {
+//            val intent = Intent(this@HomepageActivity, FrequentlyAskedQuestions::class.java)
+//            startActivity(intent)
+//            Toast.makeText(this, "Frequently Asked Questions and Answers", Toast.LENGTH_SHORT).show()
+//        }
+//
+//        val bmi = findViewById<ImageButton>(R.id.bmiImageView) as ImageButton
+//        bmi.setOnClickListener {
+//            val intent =Intent(this@HomepageActivity, BmiCalculator::class.java)
+//            startActivity(intent)
+//
+//        }
+//
+//        val hospitalVisit =findViewById<ImageButton>(R.id.hospitalVisit) as ImageButton
+//        hospitalVisit.setOnClickListener {
+//
+//            val intent = Intent(this,StartVisit::class.java)
+//            intent.putExtra("MemberData",membInfo as Serializable)
+//            startActivity(intent)
+//        }
+
 
         cardView()
 
@@ -264,54 +290,39 @@ class HomepageActivity: AppCompatActivity() {
         //return super.onCreateOptionsMenu(menu)
     }
 
-    fun showPopup(v: View){
-        val popup = PopupMenu(this, v)
-        val inflater:MenuInflater = popup.menuInflater
-        inflater.inflate(R.menu.homepage_menu,popup.menu)
-        popup.setOnMenuItemClickListener { menuItem ->
-            when(menuItem.itemId){
-                R.id.aboutLct-> {
-                    startActivity(Intent(this@HomepageActivity, AboutLct::class.java))
-                }
-                R.id.contactUs->{
+    @Override
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.getItemId()) {
 
-                    intent = Intent(this@HomepageActivity, ContactUs::class.java)
-                    startActivity(intent)
-
-                    //Toast.makeText(this, "I have been Clicked", Toast.LENGTH_SHORT).show()
-                }
-                R.id.notifications->{
-
-                    if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-                        val imp = NotificationManager.IMPORTANCE_HIGH
-                        val mNotificationChannel = NotificationChannel(CHANNEL_ID_ANDROID,CHANNEL_NAME,imp)
-                        val notificationBuilder:Notification.Builder = Notification.Builder(this@HomepageActivity,CHANNEL_ID_ANDROID)
-                            .setSmallIcon(R.drawable.lctpng)
-                            .setContentTitle("LCT Africa")
-                            .setContentText("You have received an OTP")
-
-                        val notificationManager:NotificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                        notificationManager.createNotificationChannel(mNotificationChannel)
-                        notificationManager.notify(0,notificationBuilder.build())
-                    }else{
-                        val notificationBuilder2: NotificationCompat.Builder = NotificationCompat.Builder(this@HomepageActivity,CHANNEL_ID_ANDROID)
-                            .setSmallIcon(R.drawable.lctpng)
-                            .setContentTitle("LCT Africa")
-                            .setContentText("You have received an OTP")
-                        val notificationManager:NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                        notificationManager.notify(0,notificationBuilder2.build())
-                    }
-
-                }
-
-                R.id.logout->{
-                    logout()
-                }
+            R.id.profile->{
+                val intent = Intent(this@HomepageActivity, MemberActivity::class.java)
+                startActivity(intent)
+                true
             }
-            true
+
+            R.id.faq->{
+                val intent = Intent(this@HomepageActivity, FrequentlyAskedQuestions::class.java)
+                startActivity(intent)
+                true
+            }
+
+            R.id.contactUs->{
+
+                intent = Intent(this@HomepageActivity, ContactUs::class.java)
+                startActivity(intent)
+                true
+            }
+
+
+            R.id.logout->{
+                logout()
+                true
+            }
+            else -> false
         }
-        popup.show()
     }
+
+
 
     //   code to show Greetings dependent on system time.
     @RequiresApi(Build.VERSION_CODES.N)
@@ -320,10 +331,10 @@ class HomepageActivity: AppCompatActivity() {
         var message: String=""
 
         message = when (c.get(Calendar.HOUR_OF_DAY)) {
-            in 0..11 -> "Good Morning, "
-            in 12..15 -> "Good Afternoon, "
-            in 16..20 -> "Good Evening, "
-            in 21..23 -> "Good Evening, "
+            in 0..11 -> "Good Morning"
+            in 12..15 -> "Good Afternoon"
+            in 16..20 -> "Good Evening"
+            in 21..23 -> "Good Evening"
             else -> {
                 "Hello"
             }
@@ -421,9 +432,10 @@ class HomepageActivity: AppCompatActivity() {
 
             memberId = resp.getMemberId()
 
-            memberNo.text = resp.getMemberNo()
+            member_number.text = resp.getMemberNo()
+            scheme_name.text = resp.getScheme()
 
-            policy.text =resp.getPolicyStartDate()
+            //policy.text =resp.getPolicyStartDate()
 
 
             var fullName = resp.getFullName()
@@ -433,7 +445,7 @@ class HomepageActivity: AppCompatActivity() {
                 missingDelimiterValue = "Username Not properly structured"
             )
 
-            Name.text = username
+        Name.text = " "+ General.toCamelCase(username)+","
 
             val editor = sharedpreferences!!.edit()
             editor.putString("memberId", memberId)     //im saving the image in shared prefrences then display the same image in homepage
@@ -460,10 +472,6 @@ class HomepageActivity: AppCompatActivity() {
             val gson = Gson()
              membInfo = gson.fromJson(jsonObject.toString(), MemberClaims::class.java)
 
-
-            Log.e("###MemberInfo>>: " , membInfo.fullName.toString())
-
-
             Log.e("JSON>>: ", jsonObject.toString())
 
             try {
@@ -484,12 +492,12 @@ class HomepageActivity: AppCompatActivity() {
             memberId = jsonObject.getString("memberId")
             Log.e("####memberId", jsonObject.getString("memberId"))
 
-            memberNo.text = jsonObject.getString("memberNo")
+            member_number.text = jsonObject.getString("memberNo")
 
             Log.e("member>>>", jsonObject.getString("memberNo"))
 
 
-            policy.text =jsonObject.getString("policyStartDate")
+            //policy.text =jsonObject.getString("policyStartDate")
             Log.e("###policyStartDate>>>",jsonObject.getString("policyStartDate")).toString()
 //            used this to get full name.
 //            Name.text = jsonObject.getString("fullName")
@@ -502,7 +510,7 @@ class HomepageActivity: AppCompatActivity() {
             )
             println("Username -> $username")
 
-            Name.text = username
+            Name.text = " "+ General.toCamelCase(username)+","
 
             Log.e("Conc USERNAME >>>  ", username)
 
@@ -528,6 +536,10 @@ class HomepageActivity: AppCompatActivity() {
 
         Log.e("##CHECK >>", "three")
     }
+
+
+
+
     fun showSimpleProgressDialog(
         context: Context,
         title: String?,

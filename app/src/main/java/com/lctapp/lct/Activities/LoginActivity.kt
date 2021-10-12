@@ -64,6 +64,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        setTitle("LCT - Login")
         // instantiate
         sharedpreferences = getSharedPreferences(MyPREFERENCES , Context.MODE_PRIVATE)
         SignupTask = sharedpreferences?.getInt("signed",0)!!
@@ -105,11 +106,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val bt = findViewById<Button>(R.id.btnRegister)
-        bt.setOnClickListener {
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            startActivity(intent)
-        }
 
     }
 

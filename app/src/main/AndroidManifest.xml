@@ -43,27 +43,34 @@
         android:label="LCT AFRICA"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        android:theme="@style/Theme.LCT"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
         <activity
-            android:name=".Activities.QRCodeActivity"></activity>
+            android:name=".Activities.QRCodeActivity"
+            android:parentActivityName=".Activities.StartVisit"></activity>
         <activity android:name=".Activities.SelectHospital" />
-        <activity android:name=".Activities.StartVisit" />
-        <activity android:name=".Activities.ContactUs" />
-        <activity android:name=".Activities.AboutLct" />
-        <activity android:name=".Activities.Profile" />
+        <activity android:name=".Activities.StartVisit"
+            android:launchMode="singleTop"
+            android:parentActivityName=".Activities.HomepageActivity"/>
+        <activity android:name=".Activities.ContactUs"
+            android:parentActivityName=".Activities.HomepageActivity"/>
+        <activity android:name=".Activities.Profile"
+            android:parentActivityName=".Activities.HomepageActivity"/>
         <activity android:name=".Activities.NotificationView" />
         <activity android:name=".Activities.BmiCalculator" />
         <activity android:name=".Activities.MainActivity" />
         <activity android:name=".Activities.MemberRegistration" />
         <activity android:name=".Activities.RegistrationActivity" />
-        <activity android:name=".Activities.ServiceBalances" />
+        <activity android:name=".Activities.ServiceBalances"
+            android:parentActivityName=".Activities.HomepageActivity"/>
         <activity android:name=".Activities.ResetPassword" />
-        <activity android:name=".Activities.FrequentlyAskedQuestions" />
+        <activity android:name=".Activities.FrequentlyAskedQuestions"
+            android:parentActivityName=".Activities.HomepageActivity"/>
         <activity android:name=".Activities.OneTimePassword" />
         <activity android:name=".Activities.ForgotPassword" />
-        <activity android:name=".Activities.TransactionActivity" />
+        <activity android:name=".Activities.TransactionActivity"
+            android:parentActivityName=".Activities.HomepageActivity"/>
         <activity android:name=".Activities.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -73,7 +80,8 @@
         </activity>
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.SignupActivity" />
-        <activity android:name=".Activities.MemberActivity" />
+        <activity android:name=".Activities.MemberActivity"
+            android:parentActivityName=".Activities.HomepageActivity"/>
         <activity
             android:name=".Activities.HomepageActivity"
             android:launchMode="singleTop" />

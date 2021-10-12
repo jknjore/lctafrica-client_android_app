@@ -12,6 +12,8 @@ class FrequentlyAskedQuestions : AppCompatActivity() {
     lateinit var expandableListView : ExpandableListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getActionBar()?.setDisplayHomeAsUpEnabled(true);
+        setTitle("Frequently Asked Questions")
 
         setContentView(R.layout.activity_frequently_asked_questions)
 
@@ -48,6 +50,8 @@ class FrequentlyAskedQuestions : AppCompatActivity() {
         //subTitle.add(diffAnswer)
 
         expandableListView.setAdapter(ExpandableListViewAdapter(this@FrequentlyAskedQuestions,title,subTitle))
+
+        expandableListView.expandGroup(0);
     }
 
     override fun onSupportNavigateUp(): Boolean {

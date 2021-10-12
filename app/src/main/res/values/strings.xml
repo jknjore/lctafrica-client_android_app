@@ -112,7 +112,7 @@
     <string name="enter_phone_number">Enter Phone Number</string>
     <string name="enter_id_number">Enter Id number</string>
     <string name="next">Next</string>
-    <string name="do_you_have_a_lct_account_sign_up">Do you have a lct account ? Sign up</string>
+    <string name="do_you_have_a_lct_account_sign_up">Don\'t have an account?</string>
     <string name="login_button">Login Button</string>
     <string name="productname">productName</string>
     <string name="about_lct">About LCT</string>

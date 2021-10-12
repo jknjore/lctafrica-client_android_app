@@ -17,6 +17,7 @@ class ServiceBalances : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_service_balances)
+        setTitle("Service Balances")
 
         tabLayout = findViewById(R.id.tabLayout)
 

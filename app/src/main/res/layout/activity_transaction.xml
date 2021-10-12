@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:background="@drawable/edittex_shape"
     android:scrollbarStyle="insideInset"
-    tools:context=".Activities.TransactionActivity">
+    tools:context=".Activities.TransactionActivity"
+    android:backgroundTint="@color/white">
 
 
 
@@ -15,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:backgroundTint="@color/white">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/start"
@@ -29,18 +32,22 @@
                 android:hint="@string/click_to_select_start_date"
                 android:textColorHint="#000000"
                 android:textStyle="bold"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:textColor="@color/black"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:backgroundTint="@color/white">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/to"
-                android:layout_width="wrap_content"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginBottom="0dp"
@@ -50,7 +57,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:backgroundTint="@color/white">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/stop"
@@ -64,22 +73,26 @@
                 android:hint="@string/click_to_select_end_date"
                 android:textColorHint="#000000"
                 android:textStyle="bold"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:textColor="@color/black"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:backgroundTint="@color/white">
 
             <TextView
-                android:layout_gravity="start"
+                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Preview Transactions for:"
                 android:textColor="#000000"
                 android:textSize="20sp"
+                android:layout_marginBottom="10dp"
                 />
 
             <LinearLayout
@@ -121,6 +134,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:background="@color/white"
+            android:backgroundTint="@color/white"/>
 
     </LinearLayout>

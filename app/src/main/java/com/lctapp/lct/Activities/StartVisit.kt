@@ -22,6 +22,7 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.android.extension.responseJson
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnSuccessListener
+import com.lctapp.lct.Adapters.DepedantAdapter
 import com.lctapp.lct.Classes.Api.HospitalsAPi
 import com.lctapp.lct.Classes.Constants.APIClient
 import com.lctapp.lct.Classes.FamilyMembers
@@ -50,6 +51,10 @@ import retrofit2.Response
 import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.*
+import android.view.MotionEvent
+
+
+
 
 class StartVisit : AppCompatActivity() {
     private var submitbtn: Button? = null
@@ -62,7 +67,7 @@ class StartVisit : AppCompatActivity() {
     var deciding =0
     var invoice =""
     var l: Loader = Loader
-    lateinit var memberInfo:MemberClaims
+    var memberInfo:MemberClaims =MemberClaims()
     var s:Saver = Saver()
 
     var locationValidated:Boolean = false
@@ -79,29 +84,28 @@ class StartVisit : AppCompatActivity() {
     private var locationCallback: LocationCallback? = null
     private val isContinue = false
     private var isGPS = false
-    var code_: String? = null
     private var popupshown = false
     var alertDialog: AlertDialog? = null
     val MyPREFERENCES = "MyPrefs"
-    var mobileApp:String ="mobileApp"
     private lateinit var sharedpreferences: SharedPreferences
     private lateinit var sickClient:Spinner
     private var selectedMemberNo:String = ""
-    lateinit var back:ImageButton
+    private var selectedMemberName:String = ""
     lateinit var member:String
+    lateinit var member_name:TextView
+    lateinit var member_number:TextView
+    lateinit var dependants_listview:ListView
+    lateinit var principal_layout:LinearLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start_visit)
+        setTitle("See a Doctor")
+        getActionBar()?.setDisplayHomeAsUpEnabled(true);
 
-        back = findViewById(R.id.backButton)
-        back.setOnClickListener {
-            finish()
-        }
+        memberInfo= intent.getSerializableExtra("MemberData") as MemberClaims
 
-      memberInfo= intent.getSerializableExtra("MemberData") as MemberClaims
-        Log.e("####FromStart",memberInfo.fullName.toString())
 
         val output: MutableList<String> = ArrayList()
         output.add(memberInfo.fullName.toString()+ " : " + memberInfo.memberNo)
@@ -109,136 +113,77 @@ class StartVisit : AppCompatActivity() {
                 output.add(f.famMemFullName.toString()+ " : " + f.famMemberNo)
             }
 
-         sickClient = findViewById(R.id.sickPatient)
-
-        var arrayAdapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,output)
-        sickClient.adapter =arrayAdapter
-        sickClient.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-                var selectedClient = position
-                if (selectedClient == 0){
-                    selectedMemberNo = memberInfo.memberNo.toString()
-                }else{
-                    selectedClient -=1
-                    selectedMemberNo = memberInfo.familyMemList?.get(selectedClient)?.famMemberNo.toString()
-                    Log.e("####FamilyDependents",selectedMemberNo)
-                }
-
-            }
-
-        }
-
-
-        selectHospital.visibility = View.INVISIBLE
-
-        changeHospital.visibility = View.INVISIBLE
-
-        var changeHos = findViewById<TextView>(R.id.changeHospital)
-        changeHos.setOnClickListener {
-            val i = Intent(applicationContext, SelectHospital::class.java)
-            i.putExtra("hospitalsRv", hospitals as Serializable)
-            startActivityForResult(i, AppConstants.COUNTRY_REQUEST)
-        }
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES , Context.MODE_PRIVATE)
 
         member = sharedpreferences?.getString("member" , "null").toString()
             Log.e("###>>>memberNo",member)
 
-        submitbtn = findViewById(R.id.Submit)
-        select_hospital = findViewById(R.id.selectedhospital)
+        member_name=findViewById(R.id.member_name)
+        member_number=findViewById(R.id.member_number)
+        dependants_listview=findViewById(R.id.dependants_listview)
+        principal_layout =findViewById(R.id.principal_layout)
         apiC = APIClient.client?.create(HospitalsAPi::class.java)
 
-        submitbtn?.setOnClickListener(View.OnClickListener {
+        member_name.text=memberInfo.fullName
+        member_number.text=memberInfo.memberNo
 
-            if (MerchantID == 0) {
-                //toast("Please select A Hospital to Continue")
-               // return@OnClickListener
+        val depedantAdapter:DepedantAdapter= DepedantAdapter(this@StartVisit,memberInfo)
+        dependants_listview.adapter=depedantAdapter;
+
+        dependants_listview.onItemClickListener= AdapterView.OnItemClickListener { parent, view, position, id ->
+            selectedMemberNo=memberInfo.getFamilyMemList().get(position).getFamMemberNo()
+            selectedMemberName=memberInfo.getFamilyMemList().get(position).getFamMemFullName()
+            continue_visit()
+        }
+
+
+        principal_layout.setOnTouchListener(OnTouchListener { v, event ->
+            var returnValue = true
+            if (event.action == MotionEvent.ACTION_UP) { //on touch release
+                returnValue = false //prevent default action on release
+                //do something here
+                selectedMemberNo=memberInfo.memberNo
+                selectedMemberName=memberInfo.fullName
+                continue_visit()
+            }
+            returnValue
+        })
+
+
+    }
+
+
+
+
+    private fun continue_visit()
+    {
+        if (MerchantID == 0) {
+            //toast("Please select A Hospital to Continue")
+            // return@OnClickListener
+        }
+
+
+        if (General.mapsok(this)) {
+            //getLocationPermissions();
+            //openmaps();
+            if (!General.isOnline(this)) {
+                println("Check your connection")
+                return
+            }
+            popupshown = false
+            if (alertDialog != null) {
+                alertDialog!!.dismiss()
             }
 
-            if (General.mapsok(this)) {
-                //getLocationPermissions();
-                //openmaps();
-                if (!General.isOnline(this)) {
-                    println("Check your connection")
-                    return@OnClickListener
-                }
-                popupshown = false
-                if (alertDialog != null) {
-                    alertDialog!!.dismiss()
-                }
-
-                    getuserlocation()
+            getuserlocation()
             Log.e("### GETTING USER LOCA","user location")
 
-                //submit()
-            }
-        })
-
-        select_hospital?.setOnTouchListener(OnTouchListener { v, event ->
-//            Loader.toast(this, "touched " + hospitals.size)
-            if (hospitals.size == 0) {
-                return@OnTouchListener false
-            }
-
-            //if (event.getAction() == MotionEvent.ACTION_UP) {
-            val i = Intent(applicationContext, SelectHospital::class.java)
-            i.putExtra("hospitalsRv", hospitals as Serializable)
-            startActivityForResult(i, AppConstants.COUNTRY_REQUEST)
-            // }
-            false
-        })
-
-        populate_hospitals()
-
-    }
-
-
-    private fun populate_hospitals() {
-
-        l.showprogress(this@StartVisit,"please wait......")
-
-        try {
-            val call: Call<List<HospitalData>> = apiC!!.hospitals
-            call.enqueue(object : Callback<List<HospitalData>> {
-                override fun onResponse(
-                    call: Call<List<HospitalData>>,
-                    response: Response<List<HospitalData>>
-                ) {
-                    l.dismissprogress()
-                    if (!response.isSuccessful) {
-                        var errorBodyString = ""
-                        try {
-                            errorBodyString = response.errorBody()!!.string()
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                        Loader.toastError(applicationContext, errorBodyString)
-                        l.dismissprogress()
-                        return
-                    }
-                    hospitals = response.body()!!
-                    selectHospital.visibility=View.INVISIBLE
-                    select_hospital!!.isFocusable = true
-                    select_hospital!!.isFocusableInTouchMode = true
-                    changeHospital.visibility = View.VISIBLE
-                }
-
-                override fun onFailure(call: Call<List<HospitalData>>, t: Throwable) {
-                    Loader.toastError(this@StartVisit, t.message!!)
-                    l.dismissprogress()
-                }
-            })
-        } catch (e: Exception) {
-            Loader.toast(this@StartVisit, "Error getting hospitals")
-            l.dismissprogress()
+            //submit()
         }
     }
+
+
 
     private fun getuserlocation() {
         prepare_parameters()
@@ -363,6 +308,7 @@ class StartVisit : AppCompatActivity() {
             SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( Date())
         )
         i.putExtra("scandata", scandata as Serializable?)
+        i.putExtra("selectedMemberName", selectedMemberName)
         startActivity(i)
     }
 
@@ -427,15 +373,8 @@ class StartVisit : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         try {
             super.onActivityResult(requestCode, resultCode, data)
-            select_hospital!!.clearFocus()
             if (resultCode == RESULT_OK) {
-                if (requestCode == AppConstants.COUNTRY_REQUEST) {
-                    val selectedpos = data!!.getIntExtra("pos", 0)
-                    select_hospital!!.text = hospitals[selectedpos].merchantName
-                        .toString() + ", " + hospitals[selectedpos].merchantId
-                    MerchantID = hospitals[selectedpos].merchantId!!.toInt()
-                } else if (requestCode == AppConstants.GPS_REQUEST) {
-                    Loader.toast(this, "Location was activated")
+                 if (requestCode == AppConstants.GPS_REQUEST) {
                     isGPS = true // flag maintain before get location
                     fetchlocation();
                     stopLocationUpdates()
@@ -444,8 +383,9 @@ class StartVisit : AppCompatActivity() {
                     Loader.toast(this, "Unhandled result code " + resultCode);
                 }
             }
+
         } catch (e: java.lang.Exception) {
-            // Loader.toast(SignupOne.this, "Error from opened activity " + e.getMessage());
+            //toast("Error from opened activity " + e.message);
         }
     }
 

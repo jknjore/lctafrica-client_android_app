@@ -53,6 +53,9 @@ class MemberActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_member)
+        getActionBar()?.setDisplayHomeAsUpEnabled(true);
+        setTitle("Member Details")
+
         Variables.setDependantChecker(0)
 
         apiC = APIClient.client?.create(HospitalsAPi::class.java)
@@ -70,65 +73,29 @@ class MemberActivity : AppCompatActivity() {
         Search()
     }
 
-    override fun onResume() {
-        super.onResume()
 
-        // No Internet Dialog"
-        noInternetDialog = NoInternetDialog.Builder(this)
-            .apply {
-                connectionCallback = object : ConnectionCallback { // Optional
-                    override fun hasActiveConnection(hasActiveConnection: Boolean) {
-                        // ...
-                    }
-                }
-                cancelable = false // Optional
-                noInternetConnectionTitle = "No Internet" // Optional
-                noInternetConnectionMessage =
-                    "Check your Internet connection and try again." // Optional
-                showInternetOnButtons = true // Optional
-                pleaseTurnOnText = "Please turn on" // Optional
-                wifiOnButtonText = "Wifi" // Optional
-                mobileDataOnButtonText = "Mobile data" // Optional
-
-                onAirplaneModeTitle = "No Internet" // Optional
-                onAirplaneModeMessage = "You have turned on the airplane mode." // Optional
-                pleaseTurnOffText = "Please turn off" // Optional
-                airplaneModeOffButtonText = "Airplane mode" // Optional
-                showAirplaneModeOffButtons = true // Optional
-            }
-            .build()
-        return
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        // No Internet Dialog
-        noInternetDialog?.destroy()
-
-    }
 
         private fun bounce(){
 
-        val card = findViewById<CardView>(R.id.card_view)
-        var animation= AnimationUtils.loadAnimation(this@MemberActivity, R.anim.top)
-        card.startAnimation(animation)
-
-        val car = findViewById<CardView>(R.id.cardView)
-         animation= AnimationUtils.loadAnimation(this@MemberActivity, R.anim.top)
-        car.startAnimation(animation)
-
-        val cad = findViewById<CardView>(R.id.cardview)
-        animation= AnimationUtils.loadAnimation(this@MemberActivity, R.anim.top)
-        cad.startAnimation(animation)
-
-        val view= findViewById<CardView>(R.id.cardviewfam)
-        animation= AnimationUtils.loadAnimation(this@MemberActivity, R.anim.top)
-        view.startAnimation(animation)
-
-        val viw = findViewById<CardView>(R.id.cardviewPayer)
-        animation= AnimationUtils.loadAnimation(this@MemberActivity, R.anim.top)
-        viw.startAnimation(animation)
+//        val card = findViewById<CardView>(R.id.card_view)
+//        var animation= AnimationUtils.loadAnimation(this@MemberActivity, R.anim.top)
+//        card.startAnimation(animation)
+//
+//        val car = findViewById<CardView>(R.id.cardView)
+//         animation= AnimationUtils.loadAnimation(this@MemberActivity, R.anim.top)
+//        car.startAnimation(animation)
+//
+//        val cad = findViewById<CardView>(R.id.cardview)
+//        animation= AnimationUtils.loadAnimation(this@MemberActivity, R.anim.top)
+//        cad.startAnimation(animation)
+//
+//        val view= findViewById<CardView>(R.id.cardviewfam)
+//        animation= AnimationUtils.loadAnimation(this@MemberActivity, R.anim.top)
+//        view.startAnimation(animation)
+//
+//        val viw = findViewById<CardView>(R.id.cardviewPayer)
+//        animation= AnimationUtils.loadAnimation(this@MemberActivity, R.anim.top)
+//        viw.startAnimation(animation)
     }
 
     override fun onSupportNavigateUp(): Boolean {

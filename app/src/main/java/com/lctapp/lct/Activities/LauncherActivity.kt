@@ -9,6 +9,8 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.lctapp.lct.Classes.Helpers.Loader
+import com.lctapp.lct.Classes.Helpers.Saver
 import com.lctapp.lct.Classes.security.Biometric
 import com.lctapp.lct.R
 import kotlinx.android.synthetic.main.activity_login.*
@@ -22,6 +24,7 @@ class LauncherActivity: AppCompatActivity() {
     var user : String = ""
     var useBio = 0
     lateinit var bios:Biometric
+    val s:Saver= Saver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +41,6 @@ class LauncherActivity: AppCompatActivity() {
         }
 
 
-//        if (isOnline(this)){
 
             if (loginTask == 1) {
                 user = sharedPreferences.getString("user", "null").toString()
@@ -55,14 +57,7 @@ class LauncherActivity: AppCompatActivity() {
                     finish()
                 }, TimeOut.toLong())
             }
-//        }
-//        else{
-//            Handler(Looper.getMainLooper()).postDelayed({
-//                startActivity(Intent(this@LauncherActivity, LauncherActivity::class.java)) //see this part of launching the activity
-//                finish()
-//                Toast.makeText(this,"there is no Internet connection",Toast.LENGTH_LONG).show()
-//            }, TimeOut.toLong())
-//        }
+
 
         }
     }

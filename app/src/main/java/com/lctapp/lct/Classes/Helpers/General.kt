@@ -1,20 +1,18 @@
 package com.lctapp.lct.Classes.Helpers
 
 import android.Manifest
-import android.R
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.provider.Settings
-import android.telephony.TelephonyManager
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.gson.GsonBuilder
+import java.util.*
 
 
 object General {
@@ -105,6 +103,33 @@ object General {
             )
         }
 
+    }
+
+      fun getAge(year: Int, month: Int, day: Int): String? {
+        val dob: Calendar = Calendar.getInstance()
+        val today: Calendar = Calendar.getInstance()
+        dob.set(year, month, day)
+        var age: Int = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR)
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+            age--
+        }
+        val ageInt = age
+        return ageInt.toString()
+    }
+
+
+    fun toProperCase(s: String): String? {
+        return s.substring(0, 1).toUpperCase() +
+                s.substring(1).toLowerCase()
+    }
+
+    fun toCamelCase(s: String): String? {
+        val parts = s.split(" ").toTypedArray()
+        var camelCaseString = ""
+        for (part in parts) {
+            camelCaseString = camelCaseString + toProperCase(part)
+        }
+        return camelCaseString
     }
 
 }
