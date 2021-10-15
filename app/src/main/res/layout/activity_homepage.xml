@@ -207,15 +207,23 @@
                         android:background="@color/white"
                         android:theme="@style/Theme.BG">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/benefit_balance"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            >
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        </ImageView>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_icon_bg" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_my_benefits"
+                                android:layout_centerInParent="true"
+                                />
+                        </RelativeLayout>
                     </com.google.android.material.card.MaterialCardView>
 
 
@@ -232,7 +240,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Benefit Balance"
+                            android:text="My Benefits"
                             android:textColor="@color/blue_dark"
                             android:textStyle="bold"
                             >
@@ -252,11 +260,9 @@
                 </LinearLayout>
 
 
-
-
-
                 <LinearLayout
                     android:id="@+id/utilization_report"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -272,13 +278,23 @@
                         android:padding="5dp"
                         android:theme="@style/Theme.BG">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/utilization_report"
-                            android:layout_gravity="center">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        </ImageView>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_icon_bg" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_my_benefits"
+                                android:layout_centerInParent="true"
+                                />
+                        </RelativeLayout>
                     </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
@@ -310,11 +326,8 @@
                     </LinearLayout>
                 </LinearLayout>
 
-
-
-
-
                 <LinearLayout
+                    android:id="@+id/see_a_doctor"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -329,17 +342,26 @@
                         android:padding="5dp"
                         android:theme="@style/Theme.BG">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/see_a_doctor"
-                            android:layout_gravity="center">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        </ImageView>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_icon_bg" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_see_a_doctor"
+                                android:layout_centerInParent="true"
+                                />
+                        </RelativeLayout>
                     </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
-                        android:id="@+id/see_a_doctor"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
@@ -367,6 +389,77 @@
 
                     </LinearLayout>
                 </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/nearby_hospitals"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="4"
+                    android:background="@drawable/layout_shadow"
+                    android:layout_marginVertical="5dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:theme="@style/Theme.BG">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_icon_bg" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_nearby_hospitals"
+                                android:layout_centerInParent="true"
+                                />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:orientation="vertical"
+                        android:paddingLeft="20dp"
+                        android:layout_gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nearby hospitals"
+                            android:textColor="@color/blue_dark"
+                            android:textStyle="bold">
+
+                        </TextView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Locate hospitals close to me"
+                            android:layout_marginTop="10dp">
+
+                        </TextView>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
 
 
 

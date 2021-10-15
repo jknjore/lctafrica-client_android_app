@@ -147,18 +147,17 @@
                 android:visibility="visible" />
         </RelativeLayout>
 
+
         <Button
             android:id="@+id/btnlogIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:background="@drawable/button_bg"
+            android:backgroundTint="@color/sky"
+            android:height="55dp"
             android:text="Login"
             android:textColor="#E6E6E6"
-            android:theme="@style/Theme.LCT">
-
-        </Button>
-
+            />
 
         <LinearLayout
             android:layout_width="match_parent"

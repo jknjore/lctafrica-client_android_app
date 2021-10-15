@@ -65,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         setTitle("LCT - Login")
+        supportActionBar?.hide()
         // instantiate
         sharedpreferences = getSharedPreferences(MyPREFERENCES , Context.MODE_PRIVATE)
         SignupTask = sharedpreferences?.getInt("signed",0)!!

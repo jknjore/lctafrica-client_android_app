@@ -29,7 +29,7 @@ class LauncherActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launcher)
-
+        supportActionBar?.hide()
         // Used to get user that is already logged in from shared preferences
         val sharedPreferences = getSharedPreferences(MyPREFERENCES , Context.MODE_PRIVATE)
         loginTask = sharedPreferences.getInt("logged" , 0)
