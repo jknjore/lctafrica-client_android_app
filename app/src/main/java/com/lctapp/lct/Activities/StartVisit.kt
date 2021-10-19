@@ -68,6 +68,7 @@ class StartVisit : AppCompatActivity() {
     var invoice =""
     var l: Loader = Loader
     var memberInfo:MemberClaims =MemberClaims()
+    var principalInfo:FamilyMemList =FamilyMemList()
     var s:Saver = Saver()
 
     var locationValidated:Boolean = false
@@ -106,6 +107,11 @@ class StartVisit : AppCompatActivity() {
 
         memberInfo= intent.getSerializableExtra("MemberData") as MemberClaims
 
+        principalInfo = FamilyMemList(memberInfo.getMemberNo(),memberInfo.getFullName(),memberInfo.getDateOfBirth(),memberInfo.getRelationId())
+        if(memberInfo.getFamilyMemList() != null)
+        {
+            memberInfo.familyMemList.add(0, principalInfo)
+        }
 
         val output: MutableList<String> = ArrayList()
         output.add(memberInfo.fullName.toString()+ " : " + memberInfo.memberNo)

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import com.lctapp.lct.Classes.Helpers.General
 import com.lctapp.lct.Classes.Helpers.Loader
@@ -25,10 +26,20 @@ class DepedantAdapter(context: Context, private val memberInfo: MemberClaims) :
         val dep_age:TextView= rowView.findViewById(R.id.dependant_age)
         val dep_type:TextView= rowView.findViewById(R.id.dependant_type)
 
-        dep_image.setImageResource(R.drawable.ic_depedant)
-        dep_age.text=General.getAge(Integer.parseInt(memberInfo.getFamilyMemList().get(position).famDob.split("-")[0]),Integer.parseInt(memberInfo.getFamilyMemList().get(position).famDob.split("-")[1]),Integer.parseInt(memberInfo.getFamilyMemList().get(position).famDob.split("-")[2]))+" Years"
-        dep_name.text=memberInfo.getFamilyMemList().get(position).famMemFullName
-        dep_type.text=if(memberInfo.getFamilyMemList().get(position).relationId == 1)  "Spouse" else (if(memberInfo.getFamilyMemList().get(position).famGender == "M") "Son" else "Daughter")
+            dep_image.setImageResource(R.drawable.ic_depedant)
+            dep_age.text = General.getAge(
+                Integer.parseInt(
+                    memberInfo.getFamilyMemList().get(position).famDob.split("-")[0]
+                ),
+                Integer.parseInt(memberInfo.getFamilyMemList().get(position).famDob.split("-")[1]),
+                Integer.parseInt(memberInfo.getFamilyMemList().get(position).famDob.split("-")[2])
+            ) + " Years"
+            dep_name.text = memberInfo.getFamilyMemList().get(position).famMemFullName
+            dep_type.text =
+                if (memberInfo.getFamilyMemList().get(position).relationId == 0) "Principal"
+                else if (memberInfo.getFamilyMemList().get(position).relationId == 1) "Spouse"
+                else (if (memberInfo.getFamilyMemList().get(position).famGender == "M") "Son" else "Daughter")
+
 
         return rowView
     }

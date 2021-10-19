@@ -10,6 +10,11 @@ object AppConstants {
     const val VALIDATE_LOCATION_URL ="http://35.241.171.182:8085/compas/rest/user/validateUserMobileAppLocation"
     const val NGROK_API_ = "http://7f1bd6d5ec8a.ngrok.io/compas/rest/user/validateUserMobileAppLocation/"
 
+    const val LCT_MOBILE = "+254703071333"
+    const val LCT_EMAIL = "info@lctafrica.net"
+    const val LCT_WEBSITE = "https://www.lctafrica.net"
+    const val LCT_MAPS_TEXT = "Liaison House, 3rd Floor, State House Avenue. Nairobi, Kenya"
+
 
     const val START_VISIT_DEVICEID = "mobileApp"
 }

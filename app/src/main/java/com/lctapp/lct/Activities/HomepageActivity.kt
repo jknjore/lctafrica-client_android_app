@@ -72,7 +72,7 @@ class HomepageActivity: AppCompatActivity() {
     private var apiC: HospitalsAPi? = null
     lateinit var viewpage: ViewPager2
     lateinit var member_number: TextView
-    lateinit var scheme_name: TextView
+    lateinit var insured_name: TextView
     lateinit var benefit_balance: LinearLayout
     lateinit var utilization_report: LinearLayout
     lateinit var see_doctor: LinearLayout
@@ -96,7 +96,7 @@ class HomepageActivity: AppCompatActivity() {
 
         viewpage = findViewById(R.id.viewPager)
         member_number = findViewById(R.id.member_number)
-        scheme_name = findViewById(R.id.scheme_name)
+        insured_name = findViewById(R.id.insured_name)
         benefit_balance = findViewById(R.id.benefit_balance)
         utilization_report = findViewById(R.id.utilization_report)
         see_doctor = findViewById(R.id.see_a_doctor)
@@ -433,7 +433,7 @@ class HomepageActivity: AppCompatActivity() {
             memberId = resp.getMemberId()
 
             member_number.text = resp.getMemberNo()
-            scheme_name.text = resp.getScheme()
+            insured_name.text = resp.getFullName()
 
             //policy.text =resp.getPolicyStartDate()
 

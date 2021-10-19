@@ -35,6 +35,16 @@ public class FamilyMemList implements Serializable {
     public Object famMemPhoneNumber;
     public Object cellPhone;
 
+    public FamilyMemList() {
+    }
+
+    public FamilyMemList(String famMemberNo, String famMemFullName, String famDob, int relationId) {
+        this.famMemberNo = famMemberNo;
+        this.famMemFullName = famMemFullName;
+        this.famDob = famDob;
+        this.relationId = relationId;
+    }
+
     public int getMemberId() {
         return memberId;
     }

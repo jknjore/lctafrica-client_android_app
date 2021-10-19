@@ -35,10 +35,12 @@
             </TextView>
 
             <LinearLayout
+                android:id="@+id/mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="50dp">
+                android:layout_marginTop="50dp"
+                >
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -49,17 +51,18 @@
 
 
                 <TextView
-                    android:id="@+id/help"
+                    android:id="@+id/mobiletext"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="+254703071333"
+                    android:text=""
                     android:textColor="@color/gray"/>
 
             </LinearLayout>
 
 
             <LinearLayout
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -74,11 +77,11 @@
 
 
                 <TextView
-                    android:id="@+id/contactus"
+                    android:id="@+id/emailtext"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="info@lctafrica.net"
+                    android:text=""
                     android:textColor="@color/gray"/>
 
             </LinearLayout>
@@ -87,6 +90,7 @@
 
 
             <LinearLayout
+                android:id="@+id/website"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -101,17 +105,18 @@
 
 
                 <TextView
-                    android:id="@+id/terms"
+                    android:id="@+id/websitetext"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="https://www.lctafrica.net"
+                    android:text=""
                     android:textColor="@color/gray"/>
 
             </LinearLayout>
 
 
             <LinearLayout
+                android:id="@+id/maps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -126,12 +131,12 @@
 
 
                 <TextView
-                    android:id="@+id/aboutapp"
+                    android:id="@+id/mapstext"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:textColor="@color/gray"
-                    android:text="Liaison House, 3rd Floor, State House Avenue. Nairobi, Kenya"/>
+                    android:text=""/>
 
             </LinearLayout>
 

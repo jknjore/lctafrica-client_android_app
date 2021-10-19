@@ -19,7 +19,7 @@
             android:background="#FFFFFF"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:paddingVertical="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -109,82 +109,154 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:weightSum="5"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="2"
-                    android:background="@drawable/cardview_bg"
                     android:weightSum="5"
                     android:orientation="vertical"
-                    android:padding="10dp">
+
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:layout_marginHorizontal="7dp"
+
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:clipToPadding="false"
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:paddingLeft="30dp">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:text="Member Details"
-                            android:textStyle="bold">
+                        android:background="@drawable/cardview_bg"
+                        android:elevation="30dp"
+                        android:paddingHorizontal="5dp"
+                        android:paddingVertical="10dp">
 
-                        </TextView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="2"
-                        android:orientation="vertical"
-                        android:paddingLeft="30dp">
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:text="Member Number"
-                            android:textStyle="bold">
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="20dp"
+                            android:weightSum="3"
+                            >
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/transparent_logo"></ImageView>
 
-                        </TextView>
-                        <TextView
-                            android:id="@+id/member_number"
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:textColor="@color/black"
+                                android:text="See More >"
+                                android:textAlignment="viewEnd">
+
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:orientation="vertical"
+                            android:paddingLeft="30dp"
                             android:paddingTop="10dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:text="Member Number"
+                                android:textStyle="bold"
+                                android:textSize="12dp">
 
-                        </TextView>
-                    </LinearLayout>
+                            </TextView>
+                            <TextView
+                                android:id="@+id/member_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:paddingTop="5dp"
+                                android:textSize="11dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="2"
-                        android:orientation="vertical"
-                        android:paddingLeft="30dp">
-                        <TextView
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:text="Scheme Name"
-                            android:textStyle="bold">
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:orientation="horizontal"
+                            android:paddingLeft="30dp"
+                            android:paddingTop="15dp"
+                            android:weightSum="2">
 
-                        </TextView>
-                        <TextView
-                            android:id="@+id/scheme_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:paddingTop="10dp">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:text="Name of Insured"
+                                    android:textStyle="bold"
+                                    android:textSize="12dp">
 
-                        </TextView>
+                                </TextView>
+                                <TextView
+                                    android:id="@+id/insured_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:paddingTop="5dp"
+                                    android:textSize="11dp">
+
+                                </TextView>
+                            </LinearLayout>
+
+
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:text="Expires On"
+                                    android:textStyle="bold"
+                                    android:textSize="12dp">
+
+                                </TextView>
+                                <TextView
+                                    android:id="@+id/expiry_date"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:text="01/01/1999"
+                                    android:paddingTop="5dp"
+                                    android:textSize="11dp">
+
+                                </TextView>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
                     </LinearLayout>
-
 
                 </LinearLayout>
 
@@ -197,6 +269,7 @@
                     android:weightSum="4"
                     android:background="@drawable/layout_shadow"
                     android:layout_marginTop="10dp"
+                    android:padding="15dp"
                     >
 
                     <com.google.android.material.card.MaterialCardView
@@ -332,7 +405,8 @@
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="4"
-                    android:background="@drawable/layout_shadow">
+                    android:background="@drawable/layout_shadow"
+                    android:padding="15dp">
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="0dp"
@@ -400,7 +474,8 @@
                     android:orientation="horizontal"
                     android:weightSum="4"
                     android:background="@drawable/layout_shadow"
-                    android:layout_marginVertical="5dp">
+                    android:layout_marginVertical="5dp"
+                    android:padding="15dp">
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="0dp"
@@ -471,7 +546,7 @@
 
         </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
 
 
 

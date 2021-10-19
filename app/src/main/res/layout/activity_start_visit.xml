@@ -14,39 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
-        android:orientation="vertical"
-        android:padding="15dp">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Kindly choose a member to continue..."
-                android:textStyle="bold"
-                android:textColor="@color/blue_dark"
-                android:textAlignment="center"></TextView>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp">
 
     <LinearLayout
         android:id="@+id/principal_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:weightSum="3"
-        android:background="@drawable/cardview_bg"
+        android:background="@drawable/cardview_bg_two"
         android:padding="20dp">
 
         <com.google.android.material.card.MaterialCardView
@@ -112,15 +89,42 @@
 
     </LinearLayout>
 
-            <ListView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="25dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Who needs medical attention?"
+                android:textAlignment="viewStart"
+                android:textColor="@color/blue_dark"
+                android:textStyle="bold"
+                android:textSize="14dp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kindly select a member below to continue"
+                android:textAlignment="viewStart"
+                android:textColor="@color/gray"
+                android:textSize="13dp"
+                android:layout_marginTop="10dp"></TextView>
+
+        </LinearLayout>
+
+        <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/dependants_listview"
-                android:divider="@android:color/transparent">
+                android:divider="@android:color/transparent"
+                android:paddingHorizontal="15dp">
 
             </ListView>
 
-        </LinearLayout>
+
 
 
 
