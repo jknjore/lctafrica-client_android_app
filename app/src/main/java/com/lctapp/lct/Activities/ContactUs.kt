@@ -37,10 +37,16 @@ class ContactUs : AppCompatActivity() {
         website=findViewById(R.id.website)
         maps=findViewById(R.id.maps)
 
+        mobiletext=findViewById(R.id.mobiletext)
+        emailtext=findViewById(R.id.emailtext)
+        websitetext=findViewById(R.id.websitetext)
+        mapstext=findViewById(R.id.mapstext)
+
         mobiletext.text=AppConstants.LCT_MOBILE
         emailtext.text=AppConstants.LCT_EMAIL
         websitetext.text=AppConstants.LCT_WEBSITE
         mapstext.text=AppConstants.LCT_MAPS_TEXT
+
 
         mobile.setOnClickListener(View.OnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)
@@ -50,13 +56,11 @@ class ContactUs : AppCompatActivity() {
 
         email.setOnClickListener(View.OnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO)
-            intent.data = Uri.parse("mailto:") // only email apps should handle this
-
-            intent.putExtra(Intent.EXTRA_EMAIL, AppConstants.LCT_EMAIL)
+            intent.data = Uri.parse("mailto:")
+            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(AppConstants.LCT_EMAIL))
             intent.putExtra(Intent.EXTRA_SUBJECT, "")
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
-            }
+
+            startActivity(Intent.createChooser(intent, "Email via..."))
         })
 
         website.setOnClickListener(View.OnClickListener {
@@ -66,7 +70,11 @@ class ContactUs : AppCompatActivity() {
         })
 
         maps.setOnClickListener(View.OnClickListener {
-
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(AppConstants.LCT_MAPS_ADDRESS)
+            )
+            startActivity(intent)
         })
 
     }
