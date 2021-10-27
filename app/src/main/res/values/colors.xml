@@ -10,6 +10,7 @@
     <color name="sky_dark">#0064b7</color>
     <color name="sky_light">#64c1ff</color>
     <color name="gray">#808080</color>
+    <color name="red">#FF0000</color>
 
 <!-- From: file:/Users/balysv/AndroidStudioProjects/MaterialRipple/library/src/main/res/values/colors.xml -->
 <eat-comment/>

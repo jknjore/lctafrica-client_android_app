@@ -15,7 +15,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.lctapp.lct.Classes.Api.HospitalsAPi
 import com.lctapp.lct.Classes.ConnectionDetector
 import com.lctapp.lct.Classes.Constants.APIClient
+import com.lctapp.lct.Classes.Helpers.AppConstants
 import com.lctapp.lct.Classes.Helpers.Loader
+import com.lctapp.lct.Classes.Helpers.Saver
 import com.lctapp.lct.Classes.Models.Payloads.Login
 import com.lctapp.lct.Classes.Models.Responses.LoginResp
 import com.lctapp.lct.R
@@ -50,6 +52,7 @@ class LoginActivity : AppCompatActivity() {
     var loggedIn = 0
     var firstTimeLogin =0
     var l: Loader = Loader
+    var s: Saver = Saver
 
     private var mProgressDialog: ProgressDialog? = null
 
@@ -184,6 +187,8 @@ class LoginActivity : AppCompatActivity() {
                         editor.putString("pass",pass)
                         editor.putInt("firstTimeLogin",0)
                         editor.apply()
+
+                        s.savedata(applicationContext,AppConstants.USERNAME,username)
 
                         val intent = Intent(this@LoginActivity , HomepageActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)

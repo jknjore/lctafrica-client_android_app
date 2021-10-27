@@ -33,4 +33,5 @@ class RegistrationActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.fragmentView,fragment)
         fragmentTransaction.commit()
     }
+
 }

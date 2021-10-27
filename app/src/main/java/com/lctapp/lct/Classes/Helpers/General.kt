@@ -3,15 +3,24 @@ package com.lctapp.lct.Classes.Helpers
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.provider.Settings
+import android.widget.EditText
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.gson.GsonBuilder
+import com.lctapp.lct.Activities.HomepageActivity
+import com.lctapp.lct.Classes.Api.HospitalsAPi
+import com.lctapp.lct.Classes.Models.Payloads.Login
+import com.lctapp.lct.Classes.Models.Responses.LoginResp
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 
@@ -29,6 +38,9 @@ object General {
             false
         }
     }
+
+
+
 
     fun isOnline(context: Context?): Boolean {
         if (context == null) return false

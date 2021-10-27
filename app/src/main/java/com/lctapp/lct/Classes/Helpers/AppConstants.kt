@@ -16,6 +16,9 @@ object AppConstants {
     const val LCT_MAPS_TEXT = "Liaison House, 3rd Floor, State House Avenue. Nairobi, Kenya"
     const val LCT_MAPS_ADDRESS = "https://goo.gl/maps/rg9cxEPpWiwy72iW8"
 
+    const val USERNAME = "USERNAME"
+    const val PRINCIPAL_NAME = "PRINCIPAL_NAME"
+
 
     const val START_VISIT_DEVICEID = "mobileApp"
 }

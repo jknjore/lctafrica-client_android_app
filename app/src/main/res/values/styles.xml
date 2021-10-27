@@ -29,4 +29,7 @@
         <item name="colorControlNormal">#999999</item>
     </style>
     <style name="MyAlertTheme" parent="@style/Theme.AppCompat.Light.Dialog.Alert"/>
+
+
+
 </resources>

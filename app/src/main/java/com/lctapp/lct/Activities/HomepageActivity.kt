@@ -29,10 +29,13 @@ import com.lctapp.lct.*
 import com.lctapp.lct.Classes.Adapters.ViewPagerAdapter
 import com.lctapp.lct.Classes.Api.HospitalsAPi
 import com.lctapp.lct.Classes.Constants.APIClient
+import com.lctapp.lct.Classes.Helpers.AppConstants
 import com.lctapp.lct.Classes.Helpers.General
 import com.lctapp.lct.Classes.Helpers.Loader
+import com.lctapp.lct.Classes.Helpers.Saver
 import com.lctapp.lct.Classes.Insurer
 import com.lctapp.lct.Classes.MemberData
+import com.lctapp.lct.Classes.Models.MemberBalances.MemberBalances
 import com.lctapp.lct.Classes.Models.MemberClaims.MemberClaims
 import com.lctapp.lct.Classes.Models.Payloads.Member
 import com.lctapp.lct.Classes.Variables
@@ -58,6 +61,7 @@ class HomepageActivity: AppCompatActivity() {
     lateinit var dialog: Dialog
     lateinit var imageView: ImageView
     var firstTimeLogin =0
+    var s: Saver = Saver
     var useBio = 0
     private var verified:Boolean = false
     lateinit var bios:Biometric
@@ -88,11 +92,14 @@ class HomepageActivity: AppCompatActivity() {
 
     lateinit var notificationButton:TextView
     var membInfo: MemberClaims = MemberClaims()
+    var balanceInfo: MemberBalances = MemberBalances()
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
+
+        setTitle("Benefits")
 
         viewpage = findViewById(R.id.viewPager)
         member_number = findViewById(R.id.member_number)
@@ -212,7 +219,17 @@ class HomepageActivity: AppCompatActivity() {
         }
 
         benefit_balance.setOnClickListener {
-            val intent = Intent(this@HomepageActivity, ServiceBalances::class.java)
+//            val intent = Intent(this@HomepageActivity, ServiceBalances::class.java)
+//            startActivity(intent)
+
+            if(balanceInfo.memberId == null)
+            {
+                toast("Please try again later")
+                return@setOnClickListener;
+            }
+
+            val intent = Intent(this,BenefitsActivity::class.java)
+            intent.putExtra("MemberData",balanceInfo as Serializable)
             startActivity(intent)
         }
 
@@ -222,7 +239,6 @@ class HomepageActivity: AppCompatActivity() {
         }
 
         see_doctor.setOnClickListener {
-            System.out.println("membInfo_"+General.getDump(membInfo))
             if(membInfo.memberId == null)
             {
                 toast("Please try again later")
@@ -389,13 +405,15 @@ class HomepageActivity: AppCompatActivity() {
                     val resp: MemberClaims? = response.body()
                     if(resp!!.getMemberId() != "0")
                     {
-                        populate_parameters(resp!!)
-                        populateViewPager(resp)
+                        populate_member_parameters(resp!!)
+                        //populateViewPager(resp)
                     }
                     else
                     {
                         Loader.toast(this@HomepageActivity, "An error occurred getting member details "+resp.respCode)
                     }
+
+                    get_member_balances(member)
 
                 }
 
@@ -411,7 +429,103 @@ class HomepageActivity: AppCompatActivity() {
     }
 
 
-    private fun populate_parameters(resp: MemberClaims)
+
+    private fun get_member_balances(memberNo:String)
+    {
+        l.showprogress(this@HomepageActivity,"please wait......")
+        try {
+            val payload_details = Member(memberNo)
+            val call: Call<MemberBalances> = apiC!!.get_member_balances(payload_details)
+            call.enqueue(object : Callback<MemberBalances> {
+                override fun onResponse(
+                    call: Call<MemberBalances>,
+                    response: Response<MemberBalances>
+                ) {
+                    l.dismissprogress()
+                    if (!response.isSuccessful) {
+                        var errorBodyString = ""
+                        try {
+                            errorBodyString = response.errorBody()!!.string()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                        Loader.toastError(this@HomepageActivity, errorBodyString)
+                        l.dismissprogress()
+                        return
+                    }
+                    val resp: MemberBalances? = response.body()
+                    if(resp!!.memberId != 0)
+                    {
+                        populate_balance_parameters(resp!!)
+                        //populateViewPager(resp)
+                    }
+                    else
+                    {
+                        Loader.toast(this@HomepageActivity, "An error occurred getting balance details "+resp.respCode)
+                    }
+
+                }
+
+                override fun onFailure(call: Call<MemberBalances>, t: Throwable) {
+                    Loader.toastError(this@HomepageActivity, t.message!!)
+                    l.dismissprogress()
+                }
+            })
+        } catch (e: Exception) {
+            Loader.toast(this@HomepageActivity, "Error getting member details")
+            l.dismissprogress()
+        }
+    }
+
+
+    private fun populate_balance_parameters(resp: MemberBalances)
+    {
+        balanceInfo = resp
+
+        try {
+            if (resp.memberPic != null) {
+                images = resp.memberPic as String
+
+                val decodedImage = images?.let { decodeString(it) }
+
+                pic.setImageBitmap(decodedImage)
+
+            }
+
+        } catch (e : Exception) {
+            Log.e("#### ERROR ", "HomePageActivity : " +e.toString())
+
+        }
+
+        memberId = resp.memberId.toString()
+
+        member_number.text = resp.memberNo
+        insured_name.text = resp.fullName
+
+        //policy.text =resp.getPolicyStartDate()
+
+
+        var fullName = resp.fullName
+
+        val username = fullName!!.substringBefore(
+            delimiter = " ",
+            missingDelimiterValue = "Username Not properly structured"
+        )
+
+        Name.text = " "+ General.toCamelCase(username)+","
+
+        val editor = sharedpreferences!!.edit()
+        editor.putString("memberId", memberId)     //im saving the image in shared prefrences then display the same image in homepage
+        editor.apply()
+
+        // THIS LINE COMMENTED OUT REPRESENTS THE USERS SCHEME ALSO COMMENTED OUT IN THE XML
+
+        Scheme = resp.scheme.toString()
+        Insurer.productName = Scheme
+
+    }
+
+    private fun populate_member_parameters(resp: MemberClaims)
     {
         membInfo = resp
 
@@ -434,7 +548,7 @@ class HomepageActivity: AppCompatActivity() {
 
             member_number.text = resp.getMemberNo()
             insured_name.text = resp.getFullName()
-
+            s.savedata(applicationContext, AppConstants.PRINCIPAL_NAME,resp.getFullName())
             //policy.text =resp.getPolicyStartDate()
 
 
@@ -460,82 +574,6 @@ class HomepageActivity: AppCompatActivity() {
 
 
 
-    private fun onTaskCompleted(response: String) {
-        Log.e("responsejson", response)
-        removeSimpleProgressDialog()  //will remove progress dialog
-        Log.e("check>>>>:", "one")
-        try {
-            Log.e("CHECK>>:", "two")
-
-            val jsonObject = JSONObject(response)
-            var m: MemberData
-            val gson = Gson()
-             membInfo = gson.fromJson(jsonObject.toString(), MemberClaims::class.java)
-
-            Log.e("JSON>>: ", jsonObject.toString())
-
-            try {
-                if (jsonObject.getString("memberPic") != null) {
-                    images = jsonObject.getString("memberPic")
-
-                    val decodedImage = images?.let { decodeString(it) }
-
-                    pic.setImageBitmap(decodedImage)
-
-                }
-
-            } catch (e : Exception) {
-                Log.e("#### ERROR ", "HomePageActivity : " +e.toString())
-
-            }
-
-            memberId = jsonObject.getString("memberId")
-            Log.e("####memberId", jsonObject.getString("memberId"))
-
-            member_number.text = jsonObject.getString("memberNo")
-
-            Log.e("member>>>", jsonObject.getString("memberNo"))
-
-
-            //policy.text =jsonObject.getString("policyStartDate")
-            Log.e("###policyStartDate>>>",jsonObject.getString("policyStartDate")).toString()
-//            used this to get full name.
-//            Name.text = jsonObject.getString("fullName")
-
-            var fullName = jsonObject.getString("fullName")
-
-            val username = fullName.substringBefore(
-                delimiter = " ",
-                missingDelimiterValue = "Username Not properly structured"
-            )
-            println("Username -> $username")
-
-            Name.text = " "+ General.toCamelCase(username)+","
-
-            Log.e("Conc USERNAME >>>  ", username)
-
-
-
-            val editor = sharedpreferences!!.edit()
-            editor.putString("memberId", memberId)     //im saving the image in shared prefrences then display the same image in homepage
-            editor.apply()
-
-            // THIS LINE COMMENTED OUT REPRESENTS THE USERS SCHEME ALSO COMMENTED OUT IN THE XML
-
-            val jsonObject1 = JSONObject(response)
-            Scheme =jsonObject1.optString("scheme")
-            Log.e("###scheme>>>", jsonObject.getString("scheme"))
-            Insurer.productName = Scheme
-            Log.e("###Insurer.productName",Scheme.toString())
-
-
-
-        } catch (e: java.lang.Exception) {
-            Log.e("##EXE >>", e.toString())
-        }
-
-        Log.e("##CHECK >>", "three")
-    }
 
 
 

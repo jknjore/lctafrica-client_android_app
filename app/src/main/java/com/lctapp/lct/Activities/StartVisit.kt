@@ -69,7 +69,6 @@ class StartVisit : AppCompatActivity() {
     var l: Loader = Loader
     var memberInfo:MemberClaims =MemberClaims()
     var principalInfo:FamilyMemList =FamilyMemList()
-    var s:Saver = Saver()
 
     var locationValidated:Boolean = false
 
@@ -142,6 +141,8 @@ class StartVisit : AppCompatActivity() {
             selectedMemberName=memberInfo.getFamilyMemList().get(position).getFamMemFullName()
             continue_visit()
         }
+
+        dependants_listview .setVerticalScrollBarEnabled(false)
 
 
         principal_layout.setOnTouchListener(OnTouchListener { v, event ->

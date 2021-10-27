@@ -3,6 +3,7 @@ package com.lctapp.lct.Classes.Api
 import com.google.gson.JsonObject
 import com.lctapp.lct.Classes.Models.HospitalData
 import com.lctapp.lct.Classes.Models.Member.MemberDetails
+import com.lctapp.lct.Classes.Models.MemberBalances.MemberBalances
 import com.lctapp.lct.Classes.Models.MemberClaims.MemberClaims
 import com.lctapp.lct.Classes.Models.Payloads.*
 import com.lctapp.lct.Classes.Models.Responses.GeneralResponse
@@ -49,5 +50,8 @@ interface HospitalsAPi {
 
     @GET("/compas/rest/member/gtEclaimMembers")
     fun get_member_claims(@Query("memberNo") memberNo:String): Call<MemberClaims>
+
+    @POST("/compas/rest/member/gtBalancesMobileApp")
+    fun get_member_balances(@Body req: Member?): Call<MemberBalances>
 
 }

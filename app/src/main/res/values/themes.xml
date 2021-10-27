@@ -69,4 +69,5 @@
         <!--        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>-->
 
     </style>
+
 </resources>

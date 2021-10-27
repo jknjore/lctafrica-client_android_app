@@ -24,7 +24,6 @@ class LauncherActivity: AppCompatActivity() {
     var user : String = ""
     var useBio = 0
     lateinit var bios:Biometric
-    val s:Saver= Saver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
